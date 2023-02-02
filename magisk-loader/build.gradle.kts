@@ -30,7 +30,7 @@ plugins {
 
 val moduleName = "LSPosed"
 val moduleBaseId = "lsposed"
-val authors = "LSPosed Developers"
+val authors = "LSPosed Developers, Huaji_MUR233"
 
 val riruModuleId = "lsposed"
 val moduleMinRiruApiVersion = 25
@@ -143,7 +143,7 @@ fun afterEval() = android.applicationVariants.forEach { variant ->
             "assemble$variantCapped",
             ":app:package$buildTypeCapped",
             ":daemon:package$buildTypeCapped",
-            ":dex2oat:merge${buildTypeCapped}NativeLibs"
+//            ":dex2oat:merge${buildTypeCapped}NativeLibs"
         )
         into(magiskDir)
         from("${rootProject.projectDir}/README.md")
@@ -203,9 +203,9 @@ fun afterEval() = android.applicationVariants.forEach { variant ->
             }
         }
         into("bin") {
-            from("${project(":dex2oat").buildDir}/intermediates/cmake/$buildTypeLowered/obj") {
-                include("**/dex2oat")
-            }
+//            from("${project(":dex2oat").buildDir}/intermediates/cmake/$buildTypeLowered/obj") {
+//                include("**/dex2oat")
+//            }
         }
         val dexOutPath = if (buildTypeLowered == "release")
             "$buildDir/intermediates/dex/$variantCapped/minify${variantCapped}WithR8" else

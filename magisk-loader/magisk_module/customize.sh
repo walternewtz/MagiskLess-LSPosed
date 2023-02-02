@@ -38,6 +38,8 @@ enforce_install_from_magisk_app() {
 VERSION=$(grep_prop version "${TMPDIR}/module.prop")
 ui_print "- LSPosed version ${VERSION}"
 
+[ "$KSU" != "true" ] && abort "! Only supports KernelSU, please use official Riru instead"
+
 # Extract verify.sh
 ui_print "- Extracting verify.sh"
 unzip -o "$ZIPFILE" 'verify.sh' -d "$TMPDIR" >&2
@@ -56,7 +58,7 @@ extract "$ZIPFILE" 'util_functions.sh' "$TMPDIR"
 . "$TMPDIR/util_functions.sh"
 check_android_version
 check_magisk_version
-check_incompatible_module
+#check_incompatible_module
 
 if [ "$FLAVOR" == "riru" ]; then
   # Extract riru.sh
@@ -68,8 +70,8 @@ fi
 
 enforce_install_from_magisk_app
 
-# Check architecture
-if [ "$ARCH" != "arm" ] && [ "$ARCH" != "arm64" ] && [ "$ARCH" != "x86" ] && [ "$ARCH" != "x64" ]; then
+# Check architecture, KernelSU only support arm64 and x64
+if [ "$ARCH" != "arm64" ] && [ "$ARCH" != "x64" ]; then
   abort "! Unsupported platform: $ARCH"
 else
   ui_print "- Device platform: $ARCH"
@@ -149,39 +151,40 @@ elif [ "$FLAVOR" == "riru" ]; then
   fi
 fi
 
-if [ "$API" -ge 29 ]; then
-  ui_print "- Extracting dex2oat binaries"
-  mkdir "$MODPATH/bin"
-
-  if [ "$ARCH" = "arm" ] || [ "$ARCH" = "arm64" ]; then
-    extract "$ZIPFILE" "bin/armeabi-v7a/dex2oat" "$MODPATH/bin" true
-    mv "$MODPATH/bin/dex2oat" "$MODPATH/bin/dex2oat32"
-
-    if [ "$IS64BIT" = true ]; then
-      extract "$ZIPFILE" "bin/arm64-v8a/dex2oat" "$MODPATH/bin" true
-      mv "$MODPATH/bin/dex2oat" "$MODPATH/bin/dex2oat64"
-    fi
-  elif [ "$ARCH" == "x86" ] || [ "$ARCH" == "x64" ]; then
-    extract "$ZIPFILE" "bin/x86/dex2oat" "$MODPATH/bin" true
-    mv "$MODPATH/bin/dex2oat" "$MODPATH/bin/dex2oat32"
-
-    if [ "$IS64BIT" = true ]; then
-      extract "$ZIPFILE" "bin/x86_64/dex2oat" "$MODPATH/bin" true
-      mv "$MODPATH/bin/dex2oat" "$MODPATH/bin/dex2oat64"
-    fi
-  fi
-
-  ui_print "- Patching binaries"
-  DEV_PATH=$(tr -dc 'a-f0-9' < /dev/urandom | head -c 16)
-  while [ -d "/dev/$DEV_PATH" ]; do
-    DEV_PATH=$(tr -dc 'a-f0-9' < /dev/urandom | head -c 16)
-  done
-  sed -i "s/placeholder_\/dev\/................/placeholder_\/dev\/$DEV_PATH/g" "$MODPATH/daemon.apk"
-  sed -i "s/placeholder_\/dev\/................/placeholder_\/dev\/$DEV_PATH/" "$MODPATH/bin/dex2oat32"
-  sed -i "s/placeholder_\/dev\/................/placeholder_\/dev\/$DEV_PATH/" "$MODPATH/bin/dex2oat64"
-else
-  extract "$ZIPFILE" 'system.prop' "$MODPATH"
-fi
+#if [ "$API" -ge 29 ]; then
+#  ui_print "- Extracting dex2oat binaries"
+#  mkdir "$MODPATH/bin"
+#
+#  if [ "$ARCH" = "arm" ] || [ "$ARCH" = "arm64" ]; then
+#    extract "$ZIPFILE" "bin/armeabi-v7a/dex2oat" "$MODPATH/bin" true
+#    mv "$MODPATH/bin/dex2oat" "$MODPATH/bin/dex2oat32"
+#
+#    if [ "$IS64BIT" = true ]; then
+#      extract "$ZIPFILE" "bin/arm64-v8a/dex2oat" "$MODPATH/bin" true
+#      mv "$MODPATH/bin/dex2oat" "$MODPATH/bin/dex2oat64"
+#    fi
+#  elif [ "$ARCH" == "x86" ] || [ "$ARCH" == "x64" ]; then
+#    extract "$ZIPFILE" "bin/x86/dex2oat" "$MODPATH/bin" true
+#    mv "$MODPATH/bin/dex2oat" "$MODPATH/bin/dex2oat32"
+#
+#    if [ "$IS64BIT" = true ]; then
+#      extract "$ZIPFILE" "bin/x86_64/dex2oat" "$MODPATH/bin" true
+#      mv "$MODPATH/bin/dex2oat" "$MODPATH/bin/dex2oat64"
+#    fi
+#  fi
+#
+#  ui_print "- Patching binaries"
+#  DEV_PATH=$(tr -dc 'a-f0-9' < /dev/urandom | head -c 16)
+#  while [ -d "/dev/$DEV_PATH" ]; do
+#    DEV_PATH=$(tr -dc 'a-f0-9' < /dev/urandom | head -c 16)
+#  done
+#  sed -i "s/placeholder_\/dev\/................/placeholder_\/dev\/$DEV_PATH/g" "$MODPATH/daemon.apk"
+#  sed -i "s/placeholder_\/dev\/................/placeholder_\/dev\/$DEV_PATH/" "$MODPATH/bin/dex2oat32"
+#  sed -i "s/placeholder_\/dev\/................/placeholder_\/dev\/$DEV_PATH/" "$MODPATH/bin/dex2oat64"
+#else
+#  extract "$ZIPFILE" 'system.prop' "$MODPATH"
+#fi
+extract "$ZIPFILE" 'system.prop' "$MODPATH"
 
 set_perm_recursive "$MODPATH" 0 0 0755 0644
 set_perm_recursive "$MODPATH/bin" 0 2000 0755 0755 u:object_r:dex2oat_exec:s0

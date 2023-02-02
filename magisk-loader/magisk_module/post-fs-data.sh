@@ -21,5 +21,8 @@ MODDIR=${0%/*}
 
 rm -f "/data/local/tmp/daemon.apk"
 cd "$MODDIR"
+export PATH="$PATH:$MODDIR"
+
+setenforce 0
 
 unshare -m sh -c "$MODDIR/daemon $@&"

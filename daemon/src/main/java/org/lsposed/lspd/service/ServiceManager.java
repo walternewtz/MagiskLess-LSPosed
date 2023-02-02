@@ -52,14 +52,14 @@ public class ServiceManager {
     private static LSPManagerService managerService = null;
     private static LSPSystemServerService systemServerService = null;
     private static LogcatService logcatService = null;
-    private static Dex2OatService dex2OatService = null;
+//    private static Dex2OatService dex2OatService = null;
 
     private static final ExecutorService executorService = Executors.newSingleThreadExecutor();
 
-    @RequiresApi(Build.VERSION_CODES.Q)
-    public static Dex2OatService getDex2OatService() {
-        return dex2OatService;
-    }
+//    @RequiresApi(Build.VERSION_CODES.Q)
+//    public static Dex2OatService getDex2OatService() {
+//        return dex2OatService;
+//    }
 
     public static ExecutorService getExecutorService() {
         return executorService;
@@ -116,7 +116,7 @@ public class ServiceManager {
         managerService = new LSPManagerService();
         systemServerService = new LSPSystemServerService(systemServerMaxRetry);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            dex2OatService = new Dex2OatService();
+//            dex2OatService = new Dex2OatService();
         }
 
         systemServerService.putBinderForSystemServer();

@@ -238,7 +238,7 @@ public class ConfigFileManager {
 
     static void getLogs(ParcelFileDescriptor zipFd) {
         try (var os = new ZipOutputStream(new FileOutputStream(zipFd.getFileDescriptor()))) {
-            var comment = String.format(Locale.ROOT, "LSPosed %s %s (%d)",
+            var comment = String.format(Locale.ROOT, "LSPosed for KernelSU %s %s (%d)",
                     BuildConfig.BUILD_TYPE, BuildConfig.VERSION_NAME, BuildConfig.VERSION_CODE);
             os.setComment(comment);
             os.setLevel(Deflater.BEST_COMPRESSION);
@@ -248,7 +248,7 @@ public class ConfigFileManager {
             zipAddDir(os, Paths.get("/data/anr"));
             zipAddProcOutput(os, "full.log", "logcat", "-b", "all", "-d");
             zipAddProcOutput(os, "dmesg.log", "dmesg");
-            var magiskDataDir = Paths.get("/data/adb");
+            var magiskDataDir = Paths.get("/data/adb/ksu");
             Files.list(magiskDataDir.resolve("modules")).forEach(p -> {
                 zipAddFile(os, p, magiskDataDir);
                 zipAddFile(os, p.resolve("module.prop"), magiskDataDir);

@@ -13,11 +13,12 @@ RIRU_MODULE_MIN_API_VERSION=@RIRU_MODULE_MIN_API_VERSION@
 RIRU_MODULE_MIN_RIRU_VERSION_NAME="@RIRU_MODULE_MIN_RIRU_VERSION_NAME@"
 RIRU_MODULE_DEBUG=@RIRU_MODULE_DEBUG@
 
-if [ "$MAGISK_VER_CODE" -ge 21000 ]; then
-  MAGISK_CURRENT_RIRU_MODULE_PATH=$(magisk --path)/.magisk/modules/riru-core
-else
-  MAGISK_CURRENT_RIRU_MODULE_PATH=/sbin/.magisk/modules/riru-core
-fi
+#if [ "$MAGISK_VER_CODE" -ge 21000 ]; then
+#  MAGISK_CURRENT_RIRU_MODULE_PATH=$(magisk --path)/.magisk/modules/riru-core
+#else
+#  MAGISK_CURRENT_RIRU_MODULE_PATH=/sbin/.magisk/modules/riru-core
+#fi
+MAGISK_CURRENT_RIRU_MODULE_PATH=/data/adb/ksu/modules/riru-core
 
 # This function will be used when util_functions.sh not exists
 check_riru_version() {

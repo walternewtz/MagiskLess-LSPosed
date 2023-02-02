@@ -528,7 +528,8 @@ public class LSPManagerService extends ILSPManagerService.Stub {
 
     @Override
     public boolean dex2oatFlagsLoaded() {
-        return SystemProperties.get(Dex2OatService.PROP_NAME).contains(Dex2OatService.PROP_VALUE);
+//        return SystemProperties.get(Dex2OatService.PROP_NAME).contains(Dex2OatService.PROP_VALUE);
+        return false;
     }
 
     @Override
@@ -636,10 +637,11 @@ public class LSPManagerService extends ILSPManagerService.Stub {
 
     @Override
     public int getDex2OatWrapperCompatibility() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            return ServiceManager.getDex2OatService().getCompatibility();
-        } else {
-            return 0;
-        }
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+//            return ServiceManager.getDex2OatService().getCompatibility();
+//        } else {
+//            return 0;
+//        }
+        return DEX2OAT_MOUNT_FAILED;
     }
 }

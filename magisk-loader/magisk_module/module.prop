@@ -1,5 +1,5 @@
 id=${moduleId}
-name=${api} - LSPosed
+name=${api} - LSPosed for KernelSU
 version=${versionName} (${versionCode})
 versionCode=${versionCode}
 author=${authorList}
