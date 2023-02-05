@@ -33,7 +33,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.content.pm.VersionedPackage;
-import android.net.Uri;
+import ;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;

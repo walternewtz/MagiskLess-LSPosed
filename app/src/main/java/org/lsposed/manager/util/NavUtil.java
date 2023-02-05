@@ -22,7 +22,7 @@ package org.lsposed.manager.util;
 
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
-import android.net.Uri;
+import ;
 import android.widget.Toast;
 
 import androidx.browser.customtabs.CustomTabColorSchemeParams;

@@ -32,7 +32,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
-import android.net.Uri;
+import ;
 import android.os.Build;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;

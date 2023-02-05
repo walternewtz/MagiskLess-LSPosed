@@ -20,7 +20,7 @@
 
 package org.lsposed.manager.util;
 
-import android.net.Uri;
+import ;
 
 import org.json.JSONArray;
 import org.json.JSONException;
