@@ -20,7 +20,6 @@
 
 package org.lsposed.manager.util;
 
-import ;
 
 import org.json.JSONArray;
 import org.json.JSONException;

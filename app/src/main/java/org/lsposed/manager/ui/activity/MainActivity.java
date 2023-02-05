@@ -22,7 +22,6 @@ package org.lsposed.manager.ui.activity;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import ;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;

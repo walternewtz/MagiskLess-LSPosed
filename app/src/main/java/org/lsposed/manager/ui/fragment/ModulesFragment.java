@@ -27,7 +27,6 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
-import ;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Spannable;
