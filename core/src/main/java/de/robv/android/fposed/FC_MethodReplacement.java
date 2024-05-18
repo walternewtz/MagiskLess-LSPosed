@@ -18,27 +18,27 @@
  * Copyright (C) 2021 LSPosed Contributors
  */
 
-package de.robv.android.xposed;
+package de.robv.android.fposed;
 
-import de.robv.android.xposed.callbacks.XCallback;
+import de.robv.android.fposed.callbacks.FCallback;
 
 /**
- * A special case of {@link XC_MethodHook} which completely replaces the original method.
+ * A special case of {@link FC_MethodHook} which completely replaces the original method.
  */
-public abstract class XC_MethodReplacement extends XC_MethodHook {
+public abstract class FC_MethodReplacement extends FC_MethodHook {
     /**
      * Creates a new callback with default priority.
      */
-    public XC_MethodReplacement() {
+    public FC_MethodReplacement() {
         super();
     }
 
     /**
      * Creates a new callback with a specific priority.
      *
-     * @param priority See {@link XCallback#priority}.
+     * @param priority See {@link FCallback#priority}.
      */
-    public XC_MethodReplacement(int priority) {
+    public FC_MethodReplacement(int priority) {
         super(priority);
     }
 
@@ -51,7 +51,7 @@ public abstract class XC_MethodReplacement extends XC_MethodHook {
             Object result = replaceHookedMethod(param);
             param.setResult(result);
         } catch (Throwable t) {
-            XposedBridge.log(t);
+            FposedBridge.log(t);
             param.setThrowable(t);
         }
     }
@@ -79,7 +79,7 @@ public abstract class XC_MethodReplacement extends XC_MethodHook {
     /**
      * Predefined callback that skips the method without replacements.
      */
-    public static final XC_MethodReplacement DO_NOTHING = new XC_MethodReplacement(PRIORITY_HIGHEST * 2) {
+    public static final FC_MethodReplacement DO_NOTHING = new FC_MethodReplacement(PRIORITY_HIGHEST * 2) {
         @Override
         protected Object replaceHookedMethod(MethodHookParam param) throws Throwable {
             return null;
@@ -91,18 +91,18 @@ public abstract class XC_MethodReplacement extends XC_MethodHook {
      *
      * @param result The value that should be returned to callers of the hooked method.
      */
-    public static XC_MethodReplacement returnConstant(final Object result) {
+    public static FC_MethodReplacement returnConstant(final Object result) {
         return returnConstant(PRIORITY_DEFAULT, result);
     }
 
     /**
      * Like {@link #returnConstant(Object)}, but allows to specify a priority for the callback.
      *
-     * @param priority See {@link XCallback#priority}.
+     * @param priority See {@link FCallback#priority}.
      * @param result   The value that should be returned to callers of the hooked method.
      */
-    public static XC_MethodReplacement returnConstant(int priority, final Object result) {
-        return new XC_MethodReplacement(priority) {
+    public static FC_MethodReplacement returnConstant(int priority, final Object result) {
+        return new FC_MethodReplacement(priority) {
             @Override
             protected Object replaceHookedMethod(MethodHookParam param) throws Throwable {
                 return result;

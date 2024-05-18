@@ -18,45 +18,45 @@
  * Copyright (C) 2021 LSPosed Contributors
  */
 
-package de.robv.android.xposed.callbacks;
+package de.robv.android.fposed.callbacks;
 
-import android.content.res.XResources;
-import android.content.res.XResources.ResourceNames;
+import android.content.res.FResources;
+import android.content.res.FResources.ResourceNames;
 import android.view.View;
 
-import de.robv.android.xposed.XposedBridge.CopyOnWriteSortedSet;
+import de.robv.android.fposed.FposedBridge.CopyOnWriteSortedSet;
 
 /**
- * Callback for hooking layouts. Such callbacks can be passed to {@link XResources#hookLayout}
+ * Callback for hooking layouts. Such callbacks can be passed to {@link FResources#hookLayout}
  * and its variants.
  */
-public abstract class XC_LayoutInflated extends XCallback implements Comparable<XC_LayoutInflated> {
+public abstract class FC_LayoutInflated extends FCallback implements Comparable<FC_LayoutInflated> {
     /**
      * Creates a new callback with default priority.
      */
     @SuppressWarnings("deprecation")
-    public XC_LayoutInflated() {
+    public FC_LayoutInflated() {
         super();
     }
 
     /**
      * Creates a new callback with a specific priority.
      *
-     * @param priority See {@link XCallback#priority}.
+     * @param priority See {@link FCallback#priority}.
      */
-    public XC_LayoutInflated(int priority) {
+    public FC_LayoutInflated(int priority) {
         super(priority);
     }
 
     /**
      * Wraps information about the inflated layout.
      */
-    public static final class LayoutInflatedParam extends XCallback.Param {
+    public static final class LayoutInflatedParam extends FCallback.Param {
         /**
          * @hide
          */
-        public LayoutInflatedParam(CopyOnWriteSortedSet<XC_LayoutInflated> callbacks) {
-            super(callbacks.getSnapshot(new XCallback[0]));
+        public LayoutInflatedParam(CopyOnWriteSortedSet<FC_LayoutInflated> callbacks) {
+            super(callbacks.getSnapshot(new FCallback[0]));
         }
 
         /**
@@ -77,12 +77,12 @@ public abstract class XC_LayoutInflated extends XCallback implements Comparable<
         /**
          * Resources containing the layout.
          */
-        public XResources res;
+        public FResources res;
     }
 
     /** @hide */
     @Override
-    public int compareTo(XC_LayoutInflated other) {
+    public int compareTo(FC_LayoutInflated other) {
         if (this == other)
             return 0;
 
@@ -116,7 +116,7 @@ public abstract class XC_LayoutInflated extends XCallback implements Comparable<
     /**
      * An object with which the callback can be removed.
      */
-    public class Unhook implements IXUnhook<XC_LayoutInflated> {
+    public class Unhook implements IFUnhook<FC_LayoutInflated> {
         private final String resDir;
         private final int id;
 
@@ -136,13 +136,13 @@ public abstract class XC_LayoutInflated extends XCallback implements Comparable<
         }
 
         @Override
-        public XC_LayoutInflated getCallback() {
-            return XC_LayoutInflated.this;
+        public FC_LayoutInflated getCallback() {
+            return FC_LayoutInflated.this;
         }
 
         @Override
         public void unhook() {
-            XResources.unhookLayout(resDir, id, XC_LayoutInflated.this);
+            FResources.unhookLayout(resDir, id, FC_LayoutInflated.this);
         }
 
     }

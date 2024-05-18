@@ -18,7 +18,7 @@
  * Copyright (C) 2021 LSPosed Contributors
  */
 
-package de.robv.android.xposed.callbacks;
+package de.robv.android.fposed.callbacks;
 
 import android.os.Bundle;
 
@@ -26,7 +26,7 @@ import org.lsposed.lspd.deopt.PrebuiltMethodsDeopter;
 
 import java.io.Serializable;
 
-import de.robv.android.xposed.XposedBridge;
+import de.robv.android.fposed.FposedBridge;
 
 /**
  * Base class for Xposed callbacks.
@@ -34,7 +34,7 @@ import de.robv.android.xposed.XposedBridge;
  * This class only keeps a priority for ordering multiple callbacks.
  * The actual (abstract) callback methods are added by subclasses.
  */
-abstract public class XCallback {
+abstract public class FCallback {
     /**
      * Callback priority, higher number means earlier execution.
      *
@@ -49,14 +49,14 @@ abstract public class XCallback {
      * @deprecated This constructor can't be hidden for technical reasons. Nevertheless, don't use it!
      */
     @Deprecated
-    public XCallback() {
+    public FCallback() {
         this.priority = PRIORITY_DEFAULT;
     }
 
     /**
      * @hide
      */
-    public XCallback(int priority) {
+    public FCallback(int priority) {
         this.priority = priority;
     }
 
@@ -67,7 +67,7 @@ abstract public class XCallback {
         /**
          * @hide
          */
-        public final XCallback[] callbacks;
+        public final FCallback[] callbacks;
         private Bundle extra;
 
         /**
@@ -81,7 +81,7 @@ abstract public class XCallback {
         /**
          * @hide
          */
-        protected Param(XCallback[] callbacks) {
+        protected Param(FCallback[] callbacks) {
             this.callbacks = callbacks;
         }
 
@@ -133,10 +133,10 @@ abstract public class XCallback {
      */
     public static void callAll(Param param) {
 
-        if (param instanceof XC_LoadPackage.LoadPackageParam) {
+        if (param instanceof FC_LoadPackage.LoadPackageParam) {
             // deopt methods in system apps or priv-apps, this would be not necessary
             // only if we found out how to recompile their apks
-            XC_LoadPackage.LoadPackageParam lpp = (XC_LoadPackage.LoadPackageParam) param;
+            FC_LoadPackage.LoadPackageParam lpp = (FC_LoadPackage.LoadPackageParam) param;
             PrebuiltMethodsDeopter.deoptMethods(lpp.packageName, lpp.classLoader);
         }
 
@@ -147,7 +147,7 @@ abstract public class XCallback {
             try {
                 param.callbacks[i].call(param);
             } catch (Throwable t) {
-                XposedBridge.log(t);
+                FposedBridge.log(t);
             }
         }
     }

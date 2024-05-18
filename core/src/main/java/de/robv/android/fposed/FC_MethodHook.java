@@ -18,14 +18,14 @@
  * Copyright (C) 2021 LSPosed Contributors
  */
 
-package de.robv.android.xposed;
+package de.robv.android.fposed;
 
 import java.lang.reflect.Executable;
 import java.lang.reflect.Member;
 import java.util.HashMap;
 
-import de.robv.android.xposed.callbacks.IXUnhook;
-import de.robv.android.xposed.callbacks.XCallback;
+import de.robv.android.fposed.callbacks.IFUnhook;
+import de.robv.android.fposed.callbacks.FCallback;
 
 /**
  * Callback class for method hooks.
@@ -33,12 +33,12 @@ import de.robv.android.xposed.callbacks.XCallback;
  * <p>Usually, anonymous subclasses of this class are created which override
  * {@link #beforeHookedMethod} and/or {@link #afterHookedMethod}.
  */
-public abstract class XC_MethodHook extends XCallback {
+public abstract class FC_MethodHook extends FCallback {
     /**
      * Creates a new callback with default priority.
      */
     @SuppressWarnings("deprecation")
-    public XC_MethodHook() {
+    public FC_MethodHook() {
         super();
     }
 
@@ -50,9 +50,9 @@ public abstract class XC_MethodHook extends XCallback {
      * final control over the return value. {@link #beforeHookedMethod} is called as usual, i.e.
      * highest priority first.
      *
-     * @param priority See {@link XCallback#priority}.
+     * @param priority See {@link FCallback#priority}.
      */
-    public XC_MethodHook(int priority) {
+    public FC_MethodHook(int priority) {
         super(priority);
     }
 
@@ -95,7 +95,7 @@ public abstract class XC_MethodHook extends XCallback {
     /**
      * Wraps information about the method call and allows to influence it.
      */
-    public static final class MethodHookParam<T extends Executable> extends XCallback.Param {
+    public static final class MethodHookParam<T extends Executable> extends FCallback.Param {
         /**
          * @hide
          */
@@ -181,7 +181,7 @@ public abstract class XC_MethodHook extends XCallback {
     /**
      * An object with which the method/constructor can be unhooked.
      */
-    public class Unhook implements IXUnhook<XC_MethodHook> {
+    public class Unhook implements IFUnhook<FC_MethodHook> {
         private final Member hookMethod;
 
         /*package*/ Unhook(Member hookMethod) {
@@ -196,14 +196,14 @@ public abstract class XC_MethodHook extends XCallback {
         }
 
         @Override
-        public XC_MethodHook getCallback() {
-            return XC_MethodHook.this;
+        public FC_MethodHook getCallback() {
+            return FC_MethodHook.this;
         }
 
         @SuppressWarnings("deprecation")
         @Override
         public void unhook() {
-            XposedBridge.unhookMethod(hookMethod, XC_MethodHook.this);
+            FposedBridge.unhookMethod(hookMethod, FC_MethodHook.this);
         }
 
     }

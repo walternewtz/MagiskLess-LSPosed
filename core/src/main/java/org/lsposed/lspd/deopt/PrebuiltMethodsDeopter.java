@@ -31,7 +31,7 @@ import org.lsposed.lspd.util.Utils;
 import java.lang.reflect.Executable;
 import java.util.Arrays;
 
-import de.robv.android.xposed.XposedHelpers;
+import de.robv.android.fposed.FposedHelpers;
 
 public class PrebuiltMethodsDeopter {
 
@@ -49,9 +49,9 @@ public class PrebuiltMethodsDeopter {
                 Object[] params = new Object[caller.length - 2];
                 System.arraycopy(caller, 2, params, 0, params.length);
                 if ("<init>".equals(caller[1])) {
-                    method = XposedHelpers.findConstructorExactIfExists((String) caller[0], cl, params);
+                    method = FposedHelpers.findConstructorExactIfExists((String) caller[0], cl, params);
                 } else {
-                    method = XposedHelpers.findMethodExactIfExists((String) caller[0], cl, (String) caller[1], params);
+                    method = FposedHelpers.findMethodExactIfExists((String) caller[0], cl, (String) caller[1], params);
                 }
                 if (method != null) {
                     Hookers.logD("deoptimizing " + method);

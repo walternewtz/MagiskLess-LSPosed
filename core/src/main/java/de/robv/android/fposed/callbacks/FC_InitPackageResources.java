@@ -18,53 +18,49 @@
  * Copyright (C) 2021 LSPosed Contributors
  */
 
-package de.robv.android.xposed.callbacks;
+package de.robv.android.fposed.callbacks;
 
-import android.content.res.XResources;
-import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+import android.content.res.FResources;
 
 import java.util.concurrent.CopyOnWriteArraySet;
 
-import de.robv.android.xposed.IXposedHookInitPackageResources;
+import de.robv.android.fposed.IFposedHookInitPackageResources;
 import io.github.libxposed.api.XposedModuleInterface;
 
 /**
  * This class is only used for internal purposes, except for the {@link InitPackageResourcesParam}
  * subclass.
  */
-public abstract class XC_InitPackageResources extends XCallback implements IXposedHookInitPackageResources {
+public abstract class FC_InitPackageResources extends FCallback implements IFposedHookInitPackageResources {
     /**
      * Creates a new callback with default priority.
      *
      * @hide
      */
     @SuppressWarnings("deprecation")
-    public XC_InitPackageResources() {
+    public FC_InitPackageResources() {
         super();
     }
 
     /**
      * Creates a new callback with a specific priority.
      *
-     * @param priority See {@link XCallback#priority}.
+     * @param priority See {@link FCallback#priority}.
      * @hide
      */
-    public XC_InitPackageResources(int priority) {
+    public FC_InitPackageResources(int priority) {
         super(priority);
     }
 
     /**
      * Wraps information about the resources being initialized.
      */
-    public static final class InitPackageResourcesParam extends XCallback.Param {
+    public static final class InitPackageResourcesParam extends FCallback.Param {
         /**
          * @hide
          */
-        public InitPackageResourcesParam(CopyOnWriteArraySet<XC_InitPackageResources> callbacks) {
-            super(callbacks.toArray(new XCallback[0]));
+        public InitPackageResourcesParam(CopyOnWriteArraySet<FC_InitPackageResources> callbacks) {
+            super(callbacks.toArray(new FCallback[0]));
         }
 
         /**
@@ -74,9 +70,9 @@ public abstract class XC_InitPackageResources extends XCallback implements IXpos
 
         /**
          * Reference to the resources that can be used for calls to
-         * {@link XResources#setReplacement(String, String, String, Object)}.
+         * {@link FResources#setReplacement(String, String, String, Object)}.
          */
-        public XResources res;
+        public FResources res;
     }
 
     /**
