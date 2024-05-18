@@ -1,4 +1,4 @@
-package xposed.dummy;
+package fposed.dummy;
 
 import android.content.res.Resources;
 import android.content.res.TypedArray;
@@ -11,9 +11,9 @@ import android.content.res.TypedArray;
  * In that case, XTypedArraySuperClass will extend the ROM's subclass in an attempt to increase
  * compatibility.
  */
-public class XTypedArraySuperClass extends TypedArray {
+public class FTypedArraySuperClass extends TypedArray {
 	/** Dummy, will never be called (objects are transferred to this class only). */
-	protected XTypedArraySuperClass(Resources resources) {
+	protected FTypedArraySuperClass(Resources resources) {
 		super(resources);
 		throw new UnsupportedOperationException();
 	}

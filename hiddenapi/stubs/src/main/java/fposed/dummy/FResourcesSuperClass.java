@@ -1,4 +1,4 @@
-package xposed.dummy;
+package fposed.dummy;
 
 import android.content.res.Resources;
 
@@ -10,14 +10,14 @@ import android.content.res.Resources;
  * In that case, XResourcesSuperClass will extend the ROM's subclass in an attempt to increase
  * compatibility.
  */
-public class XResourcesSuperClass extends Resources {
+public class FResourcesSuperClass extends Resources {
 	/** Dummy, will never be called (objects are transferred to this class only). */
-	protected XResourcesSuperClass() {
+	protected FResourcesSuperClass() {
 		super(null, null, null);
 		throw new UnsupportedOperationException();
 	}
 
-	protected XResourcesSuperClass(ClassLoader classLoader) {
+	protected FResourcesSuperClass(ClassLoader classLoader) {
 		super(classLoader);
 		throw new UnsupportedOperationException();
 	}

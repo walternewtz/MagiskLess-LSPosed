@@ -1,9 +1,9 @@
-package de.robv.android.xposed;
+package de.robv.android.fposed;
 
-import android.content.res.XResources;
+import android.content.res.FResources;
 
-import de.robv.android.xposed.callbacks.XC_InitPackageResources;
-import de.robv.android.xposed.callbacks.XC_InitPackageResources.InitPackageResourcesParam;
+import de.robv.android.fposed.callbacks.FC_InitPackageResources;
+import de.robv.android.fposed.callbacks.FC_InitPackageResources.InitPackageResourcesParam;
 
 /**
  * Get notified when the resources for an app are initialized.
@@ -12,10 +12,10 @@ import de.robv.android.xposed.callbacks.XC_InitPackageResources.InitPackageResou
  * <p>This interface should be implemented by the module's main class. Xposed will take care of
  * registering it as a callback automatically.
  */
-public interface IXposedHookInitPackageResources extends IXposedMod {
+public interface IFposedHookInitPackageResources extends IFposedMod {
     /**
      * This method is called when resources for an app are being initialized.
-     * Modules can call special methods of the {@link XResources} class in order to replace resources.
+     * Modules can call special methods of the {@link FResources} class in order to replace resources.
      *
      * @param resparam Information about the resources.
      * @throws Throwable Everything the callback throws is caught and logged.
@@ -23,9 +23,9 @@ public interface IXposedHookInitPackageResources extends IXposedMod {
     void handleInitPackageResources(InitPackageResourcesParam resparam) throws Throwable;
 
     /** @hide */
-    final class Wrapper extends XC_InitPackageResources {
-        private final IXposedHookInitPackageResources instance;
-        public Wrapper(IXposedHookInitPackageResources instance) {
+    final class Wrapper extends FC_InitPackageResources {
+        private final IFposedHookInitPackageResources instance;
+        public Wrapper(IFposedHookInitPackageResources instance) {
             this.instance = instance;
         }
         @Override

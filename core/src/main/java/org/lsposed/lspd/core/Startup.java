@@ -42,8 +42,8 @@ import org.lsposed.lspd.util.Utils;
 import java.util.List;
 
 import dalvik.system.DexFile;
-import de.robv.android.xposed.XposedBridge;
-import de.robv.android.xposed.XposedInit;
+import de.robv.android.fposed.FposedBridge;
+import de.robv.android.fposed.FposedInit;
 
 public class Startup {
     private static void startBootstrapHook(boolean isSystem) {
@@ -66,8 +66,8 @@ public class Startup {
     public static void bootstrapXposed() {
         // Initialize the Xposed framework
         try {
-            startBootstrapHook(XposedInit.startsSystemServer);
-            XposedInit.loadLegacyModules();
+            startBootstrapHook(FposedInit.startsSystemServer);
+            FposedInit.loadLegacyModules();
         } catch (Throwable t) {
             Utils.logE("error during Xposed initialization", t);
         }
@@ -76,8 +76,8 @@ public class Startup {
     public static void initXposed(boolean isSystem, String processName, String appDir, ILSPApplicationService service) {
         // init logger
         ApplicationServiceClient.Init(service, processName);
-        XposedBridge.initXResources();
-        XposedInit.startsSystemServer = isSystem;
+        FposedBridge.initXResources();
+        FposedInit.startsSystemServer = isSystem;
         LSPosedContext.isSystemServer = isSystem;
         LSPosedContext.appDir = appDir;
         LSPosedContext.processName = processName;

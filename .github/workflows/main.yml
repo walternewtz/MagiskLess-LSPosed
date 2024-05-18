@@ -1,4 +1,4 @@
-name: Core
+name: CoreMain
 
 on:
   workflow_dispatch:

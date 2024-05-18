@@ -18,7 +18,7 @@
  * Copyright (C) 2021 - 2022 LSPosed Contributors
  */
 
-package de.robv.android.xposed;
+package de.robv.android.fposed;
 
 import static org.lsposed.lspd.core.ApplicationServiceClient.serviceClient;
 
@@ -53,14 +53,14 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
-import de.robv.android.xposed.services.FileResult;
+import de.robv.android.fposed.services.FileResult;
 
 /**
  * This class is basically the same as SharedPreferencesImpl from AOSP, but
  * read-only and without listeners support. Instead, it is made to be
  * compatible with all ROMs.
  */
-public final class XSharedPreferences implements SharedPreferences {
+public final class FSharedPreferences implements SharedPreferences {
     private static final String TAG = "XSharedPreferences";
     private static final HashMap<WatchKey, PrefsData> sWatcherKeyInstances = new HashMap<>();
     private static final Object sContent = new Object();
@@ -136,7 +136,7 @@ public final class XSharedPreferences implements SharedPreferences {
      *
      * @param prefFile The file to read the preferences from.
      */
-    public XSharedPreferences(File prefFile) {
+    public FSharedPreferences(File prefFile) {
         mFile = prefFile;
         mFilename = prefFile.getAbsolutePath();
         init();
@@ -148,7 +148,7 @@ public final class XSharedPreferences implements SharedPreferences {
      *
      * @param packageName The package name.
      */
-    public XSharedPreferences(String packageName) {
+    public FSharedPreferences(String packageName) {
         this(packageName, packageName + "_preferences");
     }
 
@@ -159,9 +159,9 @@ public final class XSharedPreferences implements SharedPreferences {
      * @param packageName  The package name.
      * @param prefFileName The file name without ".xml".
      */
-    public XSharedPreferences(String packageName, String prefFileName) {
+    public FSharedPreferences(String packageName, String prefFileName) {
         boolean newModule = false;
-        var m = XposedInit.getLoadedModules().getOrDefault(packageName, Optional.empty());
+        var m = FposedInit.getLoadedModules().getOrDefault(packageName, Optional.empty());
         if (m.isPresent()) {
             boolean isModule = false;
             int xposedminversion = -1;
@@ -318,7 +318,7 @@ public final class XSharedPreferences implements SharedPreferences {
         new Thread("XSharedPreferences-load") {
             @Override
             public void run() {
-                synchronized (XSharedPreferences.this) {
+                synchronized (FSharedPreferences.this) {
                     loadFromDiskLocked();
                 }
             }
@@ -548,11 +548,11 @@ public final class XSharedPreferences implements SharedPreferences {
     }
 
     private static class PrefsData {
-        public final XSharedPreferences mPrefs;
+        public final FSharedPreferences mPrefs;
         private long mSize;
         private byte[] mHash;
 
-        public PrefsData(XSharedPreferences prefs) {
+        public PrefsData(FSharedPreferences prefs) {
             mPrefs = prefs;
             mSize = tryGetFileSize(prefs.mFilename);
             mHash = tryGetFileHash(prefs.mFilename);
