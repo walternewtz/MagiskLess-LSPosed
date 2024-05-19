@@ -10,14 +10,14 @@ import android.content.res.Resources;
  * In that case, XResourcesSuperClass will extend the ROM's subclass in an attempt to increase
  * compatibility.
  */
-public class FResourcesSuperClass extends Resources {
+public class XResourcesSuperClass extends Resources {
 	/** Dummy, will never be called (objects are transferred to this class only). */
-	protected FResourcesSuperClass() {
+	protected XResourcesSuperClass() {
 		super(null, null, null);
 		throw new UnsupportedOperationException();
 	}
 
-	protected FResourcesSuperClass(ClassLoader classLoader) {
+	protected XResourcesSuperClass(ClassLoader classLoader) {
 		super(classLoader);
 		throw new UnsupportedOperationException();
 	}
