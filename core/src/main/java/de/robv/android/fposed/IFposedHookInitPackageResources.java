@@ -1,6 +1,6 @@
 package de.robv.android.fposed;
 
-import android.content.res.FResources;
+import android.content.res.XResources;
 
 import de.robv.android.fposed.callbacks.FC_InitPackageResources;
 import de.robv.android.fposed.callbacks.FC_InitPackageResources.InitPackageResourcesParam;
@@ -15,7 +15,7 @@ import de.robv.android.fposed.callbacks.FC_InitPackageResources.InitPackageResou
 public interface IFposedHookInitPackageResources extends IFposedMod {
     /**
      * This method is called when resources for an app are being initialized.
-     * Modules can call special methods of the {@link FResources} class in order to replace resources.
+     * Modules can call special methods of the {@link XResources} class in order to replace resources.
      *
      * @param resparam Information about the resources.
      * @throws Throwable Everything the callback throws is caught and logged.

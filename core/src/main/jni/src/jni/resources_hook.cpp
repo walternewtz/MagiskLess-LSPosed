@@ -218,7 +218,7 @@ namespace lspd {
             LSP_NATIVE_METHOD(ResourcesHook, buildDummyClassLoader,
                               "(Ljava/lang/ClassLoader;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/ClassLoader;"),
             LSP_NATIVE_METHOD(ResourcesHook, rewriteXmlReferencesNative,
-                              "(JLandroid/content/res/FResources;Landroid/content/res/Resources;)V")
+                              "(JLandroid/content/res/XResources;Landroid/content/res/Resources;)V")
     };
 
     void RegisterResourcesHook(JNIEnv *env) {

@@ -20,14 +20,14 @@
 
 package de.robv.android.fposed.callbacks;
 
-import android.content.res.FResources;
-import android.content.res.FResources.ResourceNames;
+import android.content.res.XResources;
+import android.content.res.XResources.ResourceNames;
 import android.view.View;
 
 import de.robv.android.fposed.FposedBridge.CopyOnWriteSortedSet;
 
 /**
- * Callback for hooking layouts. Such callbacks can be passed to {@link FResources#hookLayout}
+ * Callback for hooking layouts. Such callbacks can be passed to {@link XResources#hookLayout}
  * and its variants.
  */
 public abstract class FC_LayoutInflated extends FCallback implements Comparable<FC_LayoutInflated> {
@@ -77,7 +77,7 @@ public abstract class FC_LayoutInflated extends FCallback implements Comparable<
         /**
          * Resources containing the layout.
          */
-        public FResources res;
+        public XResources res;
     }
 
     /** @hide */
@@ -142,7 +142,7 @@ public abstract class FC_LayoutInflated extends FCallback implements Comparable<
 
         @Override
         public void unhook() {
-            FResources.unhookLayout(resDir, id, FC_LayoutInflated.this);
+            XResources.unhookLayout(resDir, id, FC_LayoutInflated.this);
         }
 
     }
