@@ -166,14 +166,14 @@ public final class FposedInit {
                 new FC_MethodHook() {
                     @Override
                     protected void afterHookedMethod(MethodHookParam<?> param) throws Throwable {
-                        if (param.getResult() instanceof XResources.FTypedArray) {
+                        if (param.getResult() instanceof XResources.XTypedArray) {
                             return;
                         }
                         if (!(param.args[0] instanceof XResources)) {
                             return;
                         }
-                        XResources.FTypedArray newResult =
-                                new XResources.FTypedArray((Resources) param.args[0]);
+                        XResources.XTypedArray newResult =
+                                new XResources.XTypedArray((Resources) param.args[0]);
                         int len = (int) param.args[1];
                         Method resizeMethod = FposedHelpers.findMethodBestMatch(
                                 TypedArray.class, "resize", int.class);

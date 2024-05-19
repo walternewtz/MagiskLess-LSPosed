@@ -120,8 +120,8 @@ public final class FposedBridge {
             ClassLoader myCL = FposedBridge.class.getClassLoader();
             assert myCL != null;
             dummyClassLoader = ResourcesHook.buildDummyClassLoader(myCL.getParent(), resClass.getName(), taClass.getName());
-            dummyClassLoader.loadClass("fposed.dummy.FResourcesSuperClass");
-            dummyClassLoader.loadClass("fposed.dummy.FTypedArraySuperClass");
+            dummyClassLoader.loadClass("fposed.dummy.XResourcesSuperClass");
+            dummyClassLoader.loadClass("fposed.dummy.XTypedArraySuperClass");
             FposedHelpers.setObjectField(myCL, "parent", dummyClassLoader);
         } catch (Throwable throwable) {
             FposedBridge.log(throwable);

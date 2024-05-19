@@ -127,11 +127,11 @@ namespace lspd {
         DexBuilder dex_file;
 
         ClassBuilder xresource_builder{
-                dex_file.MakeClass("fposed.dummy.FResourcesSuperClass")};
+                dex_file.MakeClass("fposed.dummy.XResourcesSuperClass")};
         xresource_builder.setSuperClass(TypeDescriptor::FromClassname(JUTFString(env, resource_super_class).get()));
 
         ClassBuilder xtypearray_builder{
-                dex_file.MakeClass("fposed.dummy.FTypedArraySuperClass")};
+                dex_file.MakeClass("fposed.dummy.XTypedArraySuperClass")};
         xtypearray_builder.setSuperClass(TypeDescriptor::FromClassname(JUTFString(env, typed_array_super_class).get()));
 
         slicer::MemView image{dex_file.CreateImage()};

@@ -67,8 +67,8 @@ import de.robv.android.fposed.FposedInit;
 import de.robv.android.fposed.callbacks.FC_LayoutInflated;
 import de.robv.android.fposed.callbacks.FC_LayoutInflated.LayoutInflatedParam;
 import de.robv.android.fposed.callbacks.FCallback;
-import fposed.dummy.FResourcesSuperClass;
-import fposed.dummy.FTypedArraySuperClass;
+import fposed.dummy.XResourcesSuperClass;
+import fposed.dummy.XTypedArraySuperClass;
 
 /**
  * {@link android.content.res.Resources} subclass that allows replacing individual resources.
@@ -78,7 +78,7 @@ import fposed.dummy.FTypedArraySuperClass;
  * be set using the methods made available via the API methods in this class.
  */
 @SuppressWarnings("JniMissingFunction")
-public class XResources extends FResourcesSuperClass {
+public class XResources extends XResourcesSuperClass {
 	private static final SparseArray<HashMap<String, Object>> sReplacements = new SparseArray<>();
 	private static final SparseArray<HashMap<String, ResourceNames>> sResourceNames = new SparseArray<>();
 
@@ -1268,9 +1268,9 @@ public class XResources extends FResourcesSuperClass {
 	 * Mainly used when inflating layouts.
 	 * @hide
 	 */
-	public static class FTypedArray extends FTypedArraySuperClass {
+	public static class XTypedArray extends XTypedArraySuperClass {
 
-        public FTypedArray(Resources resources) {
+        public XTypedArray(Resources resources) {
             super(resources);
         }
 

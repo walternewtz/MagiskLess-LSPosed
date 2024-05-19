@@ -11,9 +11,9 @@ import android.content.res.TypedArray;
  * In that case, XTypedArraySuperClass will extend the ROM's subclass in an attempt to increase
  * compatibility.
  */
-public class FTypedArraySuperClass extends TypedArray {
+public class XTypedArraySuperClass extends TypedArray {
 	/** Dummy, will never be called (objects are transferred to this class only). */
-	protected FTypedArraySuperClass(Resources resources) {
+	protected XTypedArraySuperClass(Resources resources) {
 		super(resources);
 		throw new UnsupportedOperationException();
 	}
