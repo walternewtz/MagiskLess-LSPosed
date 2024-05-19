@@ -21,7 +21,7 @@
 package org.lsposed.lspd.hooker;
 
 import android.app.LoadedApk;
-import android.content.res.FResources;
+import android.content.res.XResources;
 import android.util.Log;
 
 import org.lsposed.lspd.util.Hookers;
@@ -48,7 +48,7 @@ public class LoadedApkCtorHooker implements XposedInterface.Hooker {
             Hookers.logD("LoadedApk#<init> ends: " + mAppDir);
 
             if (!FposedInit.disableResources) {
-                FResources.setPackageNameForResDir(packageName, loadedApk.getResDir());
+                XResources.setPackageNameForResDir(packageName, loadedApk.getResDir());
             }
 
             if (packageName.equals("android")) {

@@ -20,7 +20,7 @@
 
 package de.robv.android.fposed.callbacks;
 
-import android.content.res.FResources;
+import android.content.res.XResources;
 
 import java.util.concurrent.CopyOnWriteArraySet;
 
@@ -70,9 +70,9 @@ public abstract class FC_InitPackageResources extends FCallback implements IFpos
 
         /**
          * Reference to the resources that can be used for calls to
-         * {@link FResources#setReplacement(String, String, String, Object)}.
+         * {@link XResources#setReplacement(String, String, String, Object)}.
          */
-        public FResources res;
+        public XResources res;
     }
 
     /**

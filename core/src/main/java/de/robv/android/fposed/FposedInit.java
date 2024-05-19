@@ -34,7 +34,7 @@ import android.content.pm.ApplicationInfo;
 import android.content.res.Resources;
 import android.content.res.ResourcesImpl;
 import android.content.res.TypedArray;
-import android.content.res.FResources;
+import android.content.res.XResources;
 import android.os.Build;
 import android.os.IBinder;
 import android.os.Process;
@@ -87,7 +87,7 @@ public final class FposedInit {
                     @Override
                     protected void beforeHookedMethod(MethodHookParam<?> param) {
                         ApplicationInfo app = (ApplicationInfo) param.args[0];
-                        FResources.setPackageNameForResDir(app.packageName,
+                        XResources.setPackageNameForResDir(app.packageName,
                                 app.uid == Process.myUid() ? app.sourceDir : app.publicSourceDir);
                     }
                 });
@@ -130,7 +130,7 @@ public final class FposedInit {
                 }
                 final int resKeyIdx = getParameterIndexByType(param.method, classResKey);
                 String resDir = (String) getObjectField(param.args[resKeyIdx], "mResDir");
-                FResources newRes = cloneToXResources(param, resDir);
+                XResources newRes = cloneToXResources(param, resDir);
                 if (newRes == null) {
                     return;
                 }
@@ -166,14 +166,14 @@ public final class FposedInit {
                 new FC_MethodHook() {
                     @Override
                     protected void afterHookedMethod(MethodHookParam<?> param) throws Throwable {
-                        if (param.getResult() instanceof FResources.FTypedArray) {
+                        if (param.getResult() instanceof XResources.FTypedArray) {
                             return;
                         }
-                        if (!(param.args[0] instanceof FResources)) {
+                        if (!(param.args[0] instanceof XResources)) {
                             return;
                         }
-                        FResources.FTypedArray newResult =
-                                new FResources.FTypedArray((Resources) param.args[0]);
+                        XResources.FTypedArray newResult =
+                                new XResources.FTypedArray((Resources) param.args[0]);
                         int len = (int) param.args[1];
                         Method resizeMethod = FposedHelpers.findMethodBestMatch(
                                 TypedArray.class, "resize", int.class);
@@ -184,22 +184,22 @@ public final class FposedInit {
                 });
 
         // Replace system resources
-        FResources systemRes = new FResources(
+        XResources systemRes = new XResources(
                 (ClassLoader) FposedHelpers.getObjectField(Resources.getSystem(), "mClassLoader"), null);
         HiddenApiBridge.Resources_setImpl(systemRes, (ResourcesImpl) FposedHelpers.getObjectField(Resources.getSystem(), "mResourcesImpl"));
         setStaticObjectField(Resources.class, "mSystem", systemRes);
 
-        FResources.init(latestResKey);
+        XResources.init(latestResKey);
     }
 
-    private static FResources cloneToXResources(FC_MethodHook.MethodHookParam<?> param, String resDir) {
+    private static XResources cloneToXResources(FC_MethodHook.MethodHookParam<?> param, String resDir) {
         Object result = param.getResult();
-        if (result == null || result instanceof FResources) {
+        if (result == null || result instanceof XResources) {
             return null;
         }
 
         // Replace the returned resources with our subclass.
-        var newRes = new FResources(
+        var newRes = new XResources(
                 (ClassLoader) FposedHelpers.getObjectField(param.getResult(), "mClassLoader"), resDir);
         HiddenApiBridge.Resources_setImpl(newRes, (ResourcesImpl) FposedHelpers.getObjectField(param.getResult(), "mResourcesImpl"));
 

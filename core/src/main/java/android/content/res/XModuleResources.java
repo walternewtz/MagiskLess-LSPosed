@@ -32,8 +32,8 @@ import hidden.HiddenApiBridge;
 /**
  * Provides access to resources from a certain path (usually the module's own path).
  */
-public class FModuleResources extends Resources {
-	private FModuleResources(AssetManager assets, DisplayMetrics metrics, Configuration config) {
+public class XModuleResources extends Resources {
+	private XModuleResources(AssetManager assets, DisplayMetrics metrics, Configuration config) {
 		super(assets, metrics, config);
 	}
 
@@ -49,27 +49,27 @@ public class FModuleResources extends Resources {
 	 * @param origRes The resources object from which settings like the display metrics and the
 	 *                configuration should be copied. May be {@code null}.
 	 */
-	public static FModuleResources createInstance(String path, FResources origRes) {
+	public static XModuleResources createInstance(String path, XResources origRes) {
 		if (path == null)
 			throw new IllegalArgumentException("path must not be null");
 
 		AssetManager assets = new AssetManager();
 		HiddenApiBridge.AssetManager_addAssetPath(assets, path);
 
-		FModuleResources res;
+		XModuleResources res;
 		if (origRes != null)
-			res = new FModuleResources(assets, origRes.getDisplayMetrics(),	origRes.getConfiguration());
+			res = new XModuleResources(assets, origRes.getDisplayMetrics(),	origRes.getConfiguration());
 		else
-			res = new FModuleResources(assets, null, null);
+			res = new XModuleResources(assets, null, null);
 
 		AndroidAppHelper.addActiveResource(path, res);
 		return res;
 	}
 
 	/**
-	 * Creates an {@link FResForwarder} instance that forwards requests to {@code id} in this resource.
+	 * Creates an {@link XResForwarder} instance that forwards requests to {@code id} in this resource.
 	 */
-	public FResForwarder fwd(int id) {
-		return new FResForwarder(this, id);
+	public XResForwarder fwd(int id) {
+		return new XResForwarder(this, id);
 	}
 }
