@@ -388,7 +388,7 @@ public class ConfigFileManager {
             readName(apkFile, "META-INF/xposed/java_init.list", moduleClassNames);
             if (moduleClassNames.isEmpty()) {
                 file.legacy = true;
-                readName(apkFile, "assets/xposed_init", moduleClassNames);
+                readName(apkFile, "assets/fposed_init", moduleClassNames);
                 readName(apkFile, "assets/native_init", moduleLibraryNames);
             } else {
                 file.legacy = false;

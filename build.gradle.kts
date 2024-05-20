@@ -60,7 +60,7 @@ val repo = jgit.repo()
 val commitCount = (repo?.commitCount("refs/remotes/origin/master") ?: 1) + 4200
 val latestTag = repo?.latestTag?.removePrefix("v") ?: "1.0"
 
-val injectedPackageName by extra("com.android.shell")
+val injectedPackageName by extra("com.android.fhell")
 val injectedPackageUid by extra(2000)
 
 val defaultManagerPackageName by extra("org.lsposed.manager")
