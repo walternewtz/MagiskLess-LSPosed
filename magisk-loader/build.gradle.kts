@@ -400,7 +400,7 @@ val openApp = task<Exec>("openApp") {
     commandLine(
         adb, "shell",
         "am", "start", "-c", "org.lsposed.manager.LAUNCH_MANAGER",
-        "com.android.shell/.BugreportWarningActivity"
+        "com.android.fhell/.BugreportWarningActivity"
     )
 }
 task("reRunApp") {

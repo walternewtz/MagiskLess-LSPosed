@@ -298,7 +298,7 @@ public final class FposedInit {
 
     /**
      * Load a module from an APK by calling the init(String) method for all classes defined
-     * in <code>assets/xposed_init</code>.
+     * in <code>assets/fposed_init</code>.
      */
     private static boolean loadModule(String name, String apk, PreLoadedApk file) {
         Log.i(TAG, "Loading legacy module " + name + " from " + apk);

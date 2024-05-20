@@ -191,7 +191,7 @@ public class LoadedApkCreateCLHooker implements XposedInterface.Hooker {
         boolean xposedsharedprefs = false;
         try {
             Map<String, Object> metaData = MetaDataReader.getMetaData(new File(lpparam.appInfo.sourceDir));
-            Object minVersionRaw = metaData.get("xposedminversion");
+            Object minVersionRaw = metaData.get("fposedminversion");
             if (minVersionRaw instanceof Integer) {
                 xposedminversion = (Integer) minVersionRaw;
             } else if (minVersionRaw instanceof String) {

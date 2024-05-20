@@ -55,7 +55,7 @@ import java.util.stream.Collectors;
 import java.util.zip.ZipFile;
 
 public final class ModuleUtil {
-    // xposedminversion below this
+    // fposedminversion below this
     public static int MIN_MODULE_VERSION = 2; // reject modules with
     private static ModuleUtil instance = null;
     private final PackageManager pm;
@@ -119,7 +119,7 @@ public final class ModuleUtil {
     }
 
     public static boolean isLegacyModule(ApplicationInfo info) {
-        return info.metaData != null && info.metaData.containsKey("xposedminversion");
+        return info.metaData != null && info.metaData.containsKey("fposedminversion");
     }
 
     synchronized public void reloadInstalledModules() {
@@ -278,7 +278,7 @@ public final class ModuleUtil {
             legacy = modernModuleApk == null;
 
             if (legacy) {
-                Object minVersionRaw = app.metaData.get("xposedminversion");
+                Object minVersionRaw = app.metaData.get("fposedminversion");
                 if (minVersionRaw instanceof Integer) {
                     minVersion = (Integer) minVersionRaw;
                 } else if (minVersionRaw instanceof String) {
@@ -332,7 +332,7 @@ public final class ModuleUtil {
             if (this.description != null) return this.description;
             String descriptionTmp = "";
             if (legacy) {
-                Object descriptionRaw = app.metaData.get("xposeddescription");
+                Object descriptionRaw = app.metaData.get("fposeddescription");
                 if (descriptionRaw instanceof String) {
                     descriptionTmp = ((String) descriptionRaw).trim();
                 } else if (descriptionRaw instanceof Integer) {
