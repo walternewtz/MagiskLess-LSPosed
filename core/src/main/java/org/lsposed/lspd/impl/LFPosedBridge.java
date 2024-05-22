@@ -89,7 +89,7 @@ public class LFPosedBridge {
         栈信息      com.wthq.emptyv2.encrypt.Encryptstack$11.afterHookedMethod
         栈信息      de.robv.android.fposed.FposedBridge$LegacyApiSupport.handleAfter
         栈信息      L.callback (这个 callback 即使下面这个方法)
-        栈信息      LSPHooker_.getInstance
+        栈信息      LFPHooker_.getInstance
         栈信息      asd.b0.b
         栈信息      com.kwai.robust2.patchmanager.b.v
         栈信息      com.kwai.robust2.patchmanager.b.c

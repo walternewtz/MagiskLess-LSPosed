@@ -40,7 +40,7 @@ namespace lspd {
         jstring app_dir = nullptr;
 
         void onModuleLoaded() {
-            LOGI("onModuleLoaded: welcome to LSPosed!");
+            LOGI("onModuleLoaded: welcome to LFPosed!");
             LOGI("onModuleLoaded: version v{} ({})", versionName, versionCode);
             MagiskLoader::Init();
             ConfigImpl::Init();

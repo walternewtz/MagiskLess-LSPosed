@@ -204,4 +204,4 @@ if [ "$(grep_prop ro.maple.enable)" == "1" ] && [ "$FLAVOR" == "zygisk" ]; then
   echo "ro.maple.enable=0" >> "$MODPATH/system.prop"
 fi
 
-ui_print "- Welcome to LSPosed!"
+ui_print "- Welcome to LFPosed!"

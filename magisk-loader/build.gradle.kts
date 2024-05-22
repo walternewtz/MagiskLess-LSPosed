@@ -54,7 +54,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "org.lsposed.lspd"
+        applicationId = "org.lsposed.lfpd"
         multiDexEnabled = false
 
         buildConfigField("int", "API_CODE", "$apiCode")
