@@ -34,7 +34,7 @@
 
 
 /*
- * Module: define xposed_native file in /assets, each line is a .so file name
+ * Module: define fposed_native file in /assets, each line is a .so file name
  * LSP: Hook do_dlopen, if any .so file matches the name above, try to call
  *      "native_init(void*)" function in target so with function pointer of "init" below.
  * Module: Call init function with the pointer of callback function.

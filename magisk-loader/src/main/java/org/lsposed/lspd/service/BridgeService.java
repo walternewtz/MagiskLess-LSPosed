@@ -39,7 +39,7 @@ import org.lsposed.lspd.BuildConfig;
 public class BridgeService {
     private static final int TRANSACTION_CODE = ('_' << 24) | ('L' << 16) | ('S' << 8) | 'P';
     private static final String DESCRIPTOR = "LSPosed";
-    protected static final String TAG = "LSPosed Bridge";
+    protected static final String TAG = "LFPosed Bridge";
 
     enum ACTION {
         ACTION_UNKNOWN,
@@ -49,7 +49,7 @@ public class BridgeService {
 
     // for client
     private static IBinder serviceBinder = null;
-    private static ILSPosedService service = null;
+    private static ILFPosedService service = null;
 
     // for client
     private static final IBinder.DeathRecipient serviceRecipient = new IBinder.DeathRecipient() {
@@ -76,7 +76,7 @@ public class BridgeService {
         Binder.restoreCallingIdentity(token);
 
         serviceBinder = Binder_allowBlocking(binder);
-        service = ILSPosedService.Stub.asInterface(serviceBinder);
+        service = ILFPosedService.Stub.asInterface(serviceBinder);
         try {
             serviceBinder.linkToDeath(serviceRecipient, 0);
         } catch (Throwable e) {
@@ -92,7 +92,7 @@ public class BridgeService {
         Log.i(TAG, "binder received");
     }
 
-    public static ILSPosedService getService() {
+    public static ILFPosedService getService() {
         return service;
     }
 

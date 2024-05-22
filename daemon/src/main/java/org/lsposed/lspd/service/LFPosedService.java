@@ -20,8 +20,8 @@
 package org.lsposed.lspd.service;
 
 import static android.content.Intent.EXTRA_UID;
-import static org.lsposed.lspd.service.LSPNotificationManager.SCOPE_CHANNEL_ID;
-import static org.lsposed.lspd.service.LSPNotificationManager.UPDATED_CHANNEL_ID;
+import static org.lsposed.lspd.service.LFPNotificationManager.SCOPE_CHANNEL_ID;
+import static org.lsposed.lspd.service.LFPNotificationManager.UPDATED_CHANNEL_ID;
 import static org.lsposed.lspd.service.PackageService.PER_USER_RANGE;
 import static org.lsposed.lspd.service.ServiceManager.TAG;
 import static org.lsposed.lspd.service.ServiceManager.getExecutorService;
@@ -56,7 +56,7 @@ import java.util.zip.ZipFile;
 import hidden.HiddenApiBridge;
 import io.github.libxposed.service.IXposedScopeCallback;
 
-public class LSPosedService extends ILSPosedService.Stub {
+public class LFPosedService extends ILFPosedService.Stub {
     private static final int AID_NOBODY = 9999;
     private static final int USER_NULL = -10000;
     private static final String ACTION_USER_ADDED = "android.intent.action.USER_ADDED";
@@ -74,7 +74,7 @@ public class LSPosedService extends ILSPosedService.Stub {
         } else apks = new String[]{info.sourceDir};
         for (var apk : apks) {
             try (var zip = new ZipFile(apk)) {
-                if (zip.getEntry("META-INF/xposed/java_init.list") != null) {
+                if (zip.getEntry("META-INF/fposed/java_init.list") != null) {
                     return true;
                 }
             } catch (IOException ignored) {
@@ -84,7 +84,7 @@ public class LSPosedService extends ILSPosedService.Stub {
     }
 
     @Override
-    public ILSPApplicationService requestApplicationService(int uid, int pid, String processName, IBinder heartBeat) {
+    public ILFPApplicationService requestApplicationService(int uid, int pid, String processName, IBinder heartBeat) {
         if (Binder.getCallingUid() != 1000) {
             Log.w(TAG, "Someone else got my binder!?");
             return null;
@@ -144,12 +144,12 @@ public class LSPosedService extends ILSPosedService.Stub {
                         isXposedModule = true;
                         broadcastAndShowNotification(moduleName, userId, intent, true);
                     }
-                    LSPNotificationManager.cancelNotification(UPDATED_CHANNEL_ID, moduleName, userId);
+                    LFPNotificationManager.cancelNotification(UPDATED_CHANNEL_ID, moduleName, userId);
                 }
             }
             case Intent.ACTION_PACKAGE_REMOVED -> {
                 if (moduleName != null) {
-                    LSPNotificationManager.cancelNotification(UPDATED_CHANNEL_ID, moduleName, userId);
+                    LFPNotificationManager.cancelNotification(UPDATED_CHANNEL_ID, moduleName, userId);
                 }
             }
             case Intent.ACTION_PACKAGE_ADDED, Intent.ACTION_PACKAGE_CHANGED -> {
@@ -201,14 +201,14 @@ public class LSPosedService extends ILSPosedService.Stub {
         intent.putExtra("android.intent.extra.PACKAGES", packageName);
         intent.putExtra(Intent.EXTRA_USER, userId);
         intent.putExtra("isXposedModule", isXposedModule);
-        LSPManagerService.broadcastIntent(intent);
+        LFPManagerService.broadcastIntent(intent);
         if (isXposedModule) {
             var enabledModules = ConfigManager.getInstance().enabledModules();
             var scope = ConfigManager.getInstance().getModuleScope(packageName);
             boolean systemModule = scope != null && scope.parallelStream().anyMatch(app -> app.packageName.equals("system"));
             boolean enabled = Arrays.asList(enabledModules).contains(packageName);
             if (!(Intent.ACTION_UID_REMOVED.equals(action) || Intent.ACTION_PACKAGE_FULLY_REMOVED.equals(action) || allUsers))
-                LSPNotificationManager.notifyModuleUpdated(packageName, userId, enabled, systemModule);
+                LFPNotificationManager.notifyModuleUpdated(packageName, userId, enabled, systemModule);
         }
     }
 
@@ -216,7 +216,7 @@ public class LSPosedService extends ILSPosedService.Stub {
         if (intent == null) return;
         int uid = intent.getIntExtra(EXTRA_USER_HANDLE, AID_NOBODY);
         if (uid == AID_NOBODY || uid <= 0) return;
-        LSPManagerService.broadcastIntent(intent);
+        LFPManagerService.broadcastIntent(intent);
     }
 
     private void dispatchBootCompleted(Intent intent) {
@@ -229,9 +229,9 @@ public class LSPosedService extends ILSPosedService.Stub {
         }
         var configManager = ConfigManager.getInstance();
         if (configManager.enableStatusNotification()) {
-            LSPNotificationManager.notifyStatusNotification();
+            LFPNotificationManager.notifyStatusNotification();
         } else {
-            LSPNotificationManager.cancelStatusNotification();
+            LFPNotificationManager.cancelStatusNotification();
         }
     }
 
@@ -240,18 +240,18 @@ public class LSPosedService extends ILSPosedService.Stub {
         ConfigFileManager.reloadConfiguration();
         var configManager = ConfigManager.getInstance();
         if (configManager.enableStatusNotification()) {
-            LSPNotificationManager.notifyStatusNotification();
+            LFPNotificationManager.notifyStatusNotification();
         } else {
-            LSPNotificationManager.cancelStatusNotification();
+            LFPNotificationManager.cancelStatusNotification();
         }
     }
 
     private void dispatchSecretCodeReceive(Intent i) {
-        LSPManagerService.openManager(null);
+        LFPManagerService.openManager(null);
     }
 
     private void dispatchOpenManager(Intent intent) {
-        LSPManagerService.openManager(intent.getData());
+        LFPManagerService.openManager(intent.getData());
     }
 
     private void dispatchModuleScope(Intent intent) {
@@ -306,7 +306,7 @@ public class LSPosedService extends ILSPosedService.Stub {
                 // callback died
             }
         }
-        LSPNotificationManager.cancelNotification(SCOPE_CHANNEL_ID, packageName, userId);
+        LFPNotificationManager.cancelNotification(SCOPE_CHANNEL_ID, packageName, userId);
     }
 
     private void registerReceiver(List<IntentFilter> filters, String requiredPermission, int userId, Consumer<Intent> task, int flag) {
@@ -397,7 +397,7 @@ public class LSPosedService extends ILSPosedService.Stub {
     }
 
     private void registerOpenManagerReceiver() {
-        var intentFilter = new IntentFilter(LSPNotificationManager.openManagerAction);
+        var intentFilter = new IntentFilter(LFPNotificationManager.openManagerAction);
         var moduleFilter = new IntentFilter(intentFilter);
         moduleFilter.addDataScheme("module");
 
@@ -406,7 +406,7 @@ public class LSPosedService extends ILSPosedService.Stub {
     }
 
     private void registerModuleScopeReceiver() {
-        var intentFilter = new IntentFilter(LSPNotificationManager.moduleScope);
+        var intentFilter = new IntentFilter(LFPNotificationManager.moduleScope);
         intentFilter.addDataScheme("module");
 
         registerReceiver(List.of(intentFilter), 0, this::dispatchModuleScope);
@@ -419,26 +419,26 @@ public class LSPosedService extends ILSPosedService.Stub {
                     | HiddenApiBridge.ActivityManager_UID_OBSERVER_GONE()
                     | HiddenApiBridge.ActivityManager_UID_OBSERVER_IDLE()
                     | HiddenApiBridge.ActivityManager_UID_OBSERVER_CACHED();
-            LSPModuleService.uidClear();
+            LFPModuleService.uidClear();
             ActivityManagerService.registerUidObserver(new IUidObserver.Stub() {
                 @Override
                 public void onUidActive(int uid) {
-                    LSPModuleService.uidStarts(uid);
+                    LFPModuleService.uidStarts(uid);
                 }
 
                 @Override
                 public void onUidCachedChanged(int uid, boolean cached) {
-                    if (!cached) LSPModuleService.uidStarts(uid);
+                    if (!cached) LFPModuleService.uidStarts(uid);
                 }
 
                 @Override
                 public void onUidIdle(int uid, boolean disabled) {
-                    LSPModuleService.uidStarts(uid);
+                    LFPModuleService.uidStarts(uid);
                 }
 
                 @Override
                 public void onUidGone(int uid, boolean disabled) {
-                    LSPModuleService.uidGone(uid);
+                    LFPModuleService.uidGone(uid);
                 }
             }, which, HiddenApiBridge.ActivityManager_PROCESS_STATE_UNKNOWN(), null);
         } catch (RemoteException e) {

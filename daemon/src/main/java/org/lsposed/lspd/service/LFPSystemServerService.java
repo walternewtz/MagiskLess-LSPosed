@@ -30,7 +30,7 @@ import android.os.RemoteException;
 import android.os.SystemProperties;
 import android.util.Log;
 
-public class LSPSystemServerService extends ILSPSystemServerService.Stub implements IBinder.DeathRecipient {
+public class LFPSystemServerService extends ILFPSystemServerService.Stub implements IBinder.DeathRecipient {
 
     public static final String PROXY_SERVICE_NAME = "serial";
 
@@ -46,8 +46,8 @@ public class LSPSystemServerService extends ILSPSystemServerService.Stub impleme
         binderDied();
     }
 
-    public LSPSystemServerService(int maxRetry) {
-        Log.d(TAG, "LSPSystemServerService::LSPSystemServerService");
+    public LFPSystemServerService(int maxRetry) {
+        Log.d(TAG, "LFPSystemServerService::LFPSystemServerService");
         requested = -maxRetry;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             // Registers a callback when system is registering an authentic "serial" service
@@ -55,11 +55,11 @@ public class LSPSystemServerService extends ILSPSystemServerService.Stub impleme
             var serviceCallback = new IServiceCallback.Stub() {
                 @Override
                 public void onRegistration(String name, IBinder binder) {
-                    Log.d(TAG, "LSPSystemServerService::LSPSystemServerService onRegistration: " + name + " " + binder);
-                    if (name.equals(PROXY_SERVICE_NAME) && binder != null && binder != LSPSystemServerService.this) {
+                    Log.d(TAG, "LFPSystemServerService::LFPSystemServerService onRegistration: " + name + " " + binder);
+                    if (name.equals(PROXY_SERVICE_NAME) && binder != null && binder != LFPSystemServerService.this) {
                         Log.d(TAG, "Register " + name + " " + binder);
                         originService = binder;
-                        LSPSystemServerService.this.linkToDeath();
+                        LFPSystemServerService.this.linkToDeath();
                     }
                 }
 
@@ -77,8 +77,8 @@ public class LSPSystemServerService extends ILSPSystemServerService.Stub impleme
     }
 
     @Override
-    public ILSPApplicationService requestApplicationService(int uid, int pid, String processName, IBinder heartBeat) {
-        Log.d(TAG, "ILSPApplicationService.requestApplicationService: " + uid + " " + pid + " " + processName + " " + heartBeat);
+    public ILFPApplicationService requestApplicationService(int uid, int pid, String processName, IBinder heartBeat) {
+        Log.d(TAG, "ILFPApplicationService.requestApplicationService: " + uid + " " + pid + " " + processName + " " + heartBeat);
         requested = 1;
         if (ConfigManager.getInstance().shouldSkipSystemServer() || uid != 1000 || heartBeat == null || !"system".equals(processName))
             return null;
@@ -88,7 +88,7 @@ public class LSPSystemServerService extends ILSPSystemServerService.Stub impleme
 
     @Override
     public boolean onTransact(int code, Parcel data, Parcel reply, int flags) throws RemoteException {
-        Log.d(TAG, "LSPSystemServerService.onTransact: code=" + code);
+        Log.d(TAG, "LFPSystemServerService.onTransact: code=" + code);
         if (originService != null) {
             return originService.transact(code, data, reply, flags);
         }
@@ -101,16 +101,16 @@ public class LSPSystemServerService extends ILSPSystemServerService.Stub impleme
                 IBinder heartBeat = data.readStrongBinder();
                 var service = requestApplicationService(uid, pid, processName, heartBeat);
                 if (service != null) {
-                    Log.d(TAG, "LSPSystemServerService.onTransact requestApplicationService granted: " + service);
+                    Log.d(TAG, "LFPSystemServerService.onTransact requestApplicationService granted: " + service);
                     reply.writeNoException();
                     reply.writeStrongBinder(service.asBinder());
                     return true;
                 } else {
-                    Log.d(TAG, "LSPSystemServerService.onTransact requestApplicationService rejected");
+                    Log.d(TAG, "LFPSystemServerService.onTransact requestApplicationService rejected");
                     return false;
                 }
             }
-            case LSPApplicationService.OBFUSCATION_MAP_TRANSACTION_CODE, LSPApplicationService.DEX_TRANSACTION_CODE -> {
+            case LFPApplicationService.OBFUSCATION_MAP_TRANSACTION_CODE, LFPApplicationService.DEX_TRANSACTION_CODE -> {
                 // Proxy LSP dex transaction to Application Binder
                 return ServiceManager.getApplicationService().onTransact(code, data, reply, flags);
             }

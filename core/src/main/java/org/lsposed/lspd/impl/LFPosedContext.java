@@ -14,11 +14,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import org.lsposed.lspd.core.BuildConfig;
-import org.lsposed.lspd.impl.utils.LSPosedDexParser;
+import org.lsposed.lspd.impl.utils.LFPosedDexParser;
 import org.lsposed.lspd.models.Module;
 import org.lsposed.lspd.nativebridge.HookBridge;
 import org.lsposed.lspd.nativebridge.NativeAPI;
-import org.lsposed.lspd.service.ILSPInjectedModuleService;
+import org.lsposed.lspd.service.ILFPInjectedModuleService;
 import org.lsposed.lspd.util.LspModuleClassLoader;
 
 import java.io.File;
@@ -55,10 +55,10 @@ public class LFPosedContext implements XposedInterface {
 
     private final String mPackageName;
     private final ApplicationInfo mApplicationInfo;
-    private final ILSPInjectedModuleService service;
+    private final ILFPInjectedModuleService service;
     private final Map<String, SharedPreferences> mRemotePrefs = new ConcurrentHashMap<>();
 
-    LFPosedContext(String packageName, ApplicationInfo applicationInfo, ILSPInjectedModuleService service) {
+    LFPosedContext(String packageName, ApplicationInfo applicationInfo, ILFPInjectedModuleService service) {
         this.mPackageName = packageName;
         this.mApplicationInfo = applicationInfo;
         this.service = service;
@@ -288,7 +288,7 @@ public class LFPosedContext implements XposedInterface {
 
     @Override
     public DexParser parseDex(@NonNull ByteBuffer dexData, boolean includeAnnotations) throws IOException {
-        return new LSPosedDexParser(dexData, includeAnnotations);
+        return new LFPosedDexParser(dexData, includeAnnotations);
     }
 
     @NonNull

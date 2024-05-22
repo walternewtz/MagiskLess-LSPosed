@@ -39,7 +39,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
-public class LSPApplicationService extends ILSPApplicationService.Stub {
+public class LFPApplicationService extends ILFPApplicationService.Stub {
     final static int DEX_TRANSACTION_CODE = 1310096052;
     final static int OBFUSCATION_MAP_TRANSACTION_CODE = 724533732;
     // key: <uid, pid>
@@ -82,7 +82,7 @@ public class LSPApplicationService extends ILSPApplicationService.Stub {
 
     @Override
     public boolean onTransact(int code, Parcel data, Parcel reply, int flags) throws RemoteException {
-        Log.d(TAG, "LSPApplicationService.onTransact: code=" + code);
+        Log.d(TAG, "LFPApplicationService.onTransact: code=" + code);
         switch (code) {
             case DEX_TRANSACTION_CODE: {
                 var shm = ConfigManager.getInstance().getPreloadDex();

@@ -34,7 +34,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import io.github.libxposed.service.IXposedScopeCallback;
 
-public class LSPNotificationManager {
+public class LFPNotificationManager {
     static final String UPDATED_CHANNEL_ID = "lsposed_module_updated";
     static final String SCOPE_CHANNEL_ID = "lsposed_module_scope";
     private static final String STATUS_CHANNEL_ID = "lsposed_status";

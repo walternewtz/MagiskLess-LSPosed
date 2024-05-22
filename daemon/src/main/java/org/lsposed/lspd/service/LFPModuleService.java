@@ -47,12 +47,12 @@ import java.util.concurrent.ConcurrentHashMap;
 import io.github.libxposed.service.IXposedScopeCallback;
 import io.github.libxposed.service.IXposedService;
 
-public class LSPModuleService extends IXposedService.Stub {
+public class LFPModuleService extends IXposedService.Stub {
 
     private final static String TAG = "LSPosedModuleService";
 
     private final static Set<Integer> uidSet = ConcurrentHashMap.newKeySet();
-    private final static Map<Module, LSPModuleService> serviceMap = Collections.synchronizedMap(new WeakHashMap<>());
+    private final static Map<Module, LFPModuleService> serviceMap = Collections.synchronizedMap(new WeakHashMap<>());
 
     public final static String FILES_DIR = "files";
 
@@ -68,7 +68,7 @@ public class LSPModuleService extends IXposedService.Stub {
             uidSet.add(uid);
             var module = ConfigManager.getInstance().getModule(uid);
             if (module != null && module.file != null && !module.file.legacy) {
-                var service = serviceMap.computeIfAbsent(module, LSPModuleService::new);
+                var service = serviceMap.computeIfAbsent(module, LFPModuleService::new);
                 service.sendBinder(uid);
             }
         }
@@ -110,7 +110,7 @@ public class LSPModuleService extends IXposedService.Stub {
         }
     }
 
-    LSPModuleService(@NonNull Module module) {
+    LFPModuleService(@NonNull Module module) {
         loadedModule = module;
     }
 
@@ -170,7 +170,7 @@ public class LSPModuleService extends IXposedService.Stub {
         if (ConfigManager.getInstance().scopeRequestBlocked(loadedModule.packageName)) {
             callback.onScopeRequestDenied(packageName);
         } else {
-            LSPNotificationManager.requestModuleScope(loadedModule.packageName, userId, packageName, callback);
+            LFPNotificationManager.requestModuleScope(loadedModule.packageName, userId, packageName, callback);
             callback.onScopeRequestPrompted(packageName);
         }
     }
@@ -218,7 +218,7 @@ public class LSPModuleService extends IXposedService.Stub {
         }
         try {
             ConfigManager.getInstance().updateModulePrefs(loadedModule.packageName, userId, group, values);
-            ((LSPInjectedModuleService) loadedModule.service).onUpdateRemotePreferences(group, diff);
+            ((LFPInjectedModuleService) loadedModule.service).onUpdateRemotePreferences(group, diff);
         } catch (Throwable e) {
             throw new RemoteException(e.getMessage());
         }

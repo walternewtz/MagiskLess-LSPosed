@@ -27,26 +27,26 @@ import android.os.RemoteException;
 import androidx.annotation.NonNull;
 
 import org.lsposed.lspd.models.Module;
-import org.lsposed.lspd.service.ILSPApplicationService;
+import org.lsposed.lspd.service.ILFPApplicationService;
 import org.lsposed.lspd.util.Utils;
 
 import java.util.Collections;
 import java.util.List;
 
-public class ApplicationServiceClient implements ILSPApplicationService, IBinder.DeathRecipient {
+public class ApplicationServiceClient implements ILFPApplicationService, IBinder.DeathRecipient {
     public static ApplicationServiceClient serviceClient = null;
 
-    final ILSPApplicationService service;
+    final ILFPApplicationService service;
 
     final String processName;
 
-    private ApplicationServiceClient(@NonNull ILSPApplicationService service, @NonNull String processName) throws RemoteException {
+    private ApplicationServiceClient(@NonNull ILFPApplicationService service, @NonNull String processName) throws RemoteException {
         this.service = service;
         this.processName = processName;
         this.service.asBinder().linkToDeath(this, 0);
     }
 
-    synchronized static void Init(ILSPApplicationService service, String niceName) {
+    synchronized static void Init(ILFPApplicationService service, String niceName) {
         var binder = service.asBinder();
         if (serviceClient == null && binder != null) {
             try {

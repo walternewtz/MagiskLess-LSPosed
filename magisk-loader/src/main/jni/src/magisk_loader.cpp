@@ -217,7 +217,7 @@ namespace lspd {
             FindAndCall(env, "forkCommon",
                         "(ZLjava/lang/String;Ljava/lang/String;Landroid/os/IBinder;)V",
                         JNI_FALSE, nice_name, app_dir, binder);
-            LOGD("injected xposed into {}", process_name.get());
+            LOGD("injected fposed into {}", process_name.get());
             setAllowUnload(false);
             GetArt(true);
         } else {

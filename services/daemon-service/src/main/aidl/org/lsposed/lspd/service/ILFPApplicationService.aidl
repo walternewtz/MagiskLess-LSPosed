@@ -2,7 +2,7 @@ package org.lsposed.lspd.service;
 
 import org.lsposed.lspd.models.Module;
 
-interface ILSPApplicationService {
+interface ILFPApplicationService {
     List<Module> getLegacyModulesList();
 
     List<Module> getModulesList();

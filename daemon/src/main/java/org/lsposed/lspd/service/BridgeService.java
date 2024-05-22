@@ -173,7 +173,7 @@ public class BridgeService {
         }
     }
 
-    public static void send(LSPosedService service, Listener listener) {
+    public static void send(LFPosedService service, Listener listener) {
         BridgeService.listener = listener;
         BridgeService.serviceBinder = service.asBinder();
         sendToBridge(serviceBinder, false);

@@ -10,7 +10,7 @@ import java.nio.ByteBuffer;
 
 import io.github.libxposed.api.utils.DexParser;
 
-public class LSPosedDexParser implements DexParser {
+public class LFPosedDexParser implements DexParser {
     long cookie;
 
     @NonNull
@@ -30,7 +30,7 @@ public class LSPosedDexParser implements DexParser {
     @NonNull
     final Array[] arrays;
 
-    public LSPosedDexParser(@NonNull ByteBuffer buffer, boolean includeAnnotations) throws IOException {
+    public LFPosedDexParser(@NonNull ByteBuffer buffer, boolean includeAnnotations) throws IOException {
         if (!buffer.isDirect() || !buffer.asReadOnlyBuffer().hasArray()) {
             data = ByteBuffer.allocateDirect(buffer.capacity());
             data.put(buffer);

@@ -52,13 +52,13 @@ import java.util.concurrent.Executors;
 import hidden.HiddenApiBridge;
 
 public class ServiceManager {
-    public static final String TAG = "LSPosedService";
+    public static final String TAG = "LFPosedService";
     private static final File globalNamespace = new File("/proc/1/root");
     @SuppressWarnings("FieldCanBeLocal")
-    private static LSPosedService mainService = null;
-    private static LSPApplicationService applicationService = null;
-    private static LSPManagerService managerService = null;
-    private static LSPSystemServerService systemServerService = null;
+    private static LFPosedService mainService = null;
+    private static LFPApplicationService applicationService = null;
+    private static LFPManagerService managerService = null;
+    private static LFPSystemServerService systemServerService = null;
     private static LogcatService logcatService = null;
     private static Dex2OatService dex2OatService = null;
 
@@ -122,10 +122,10 @@ public class ServiceManager {
         Looper.prepareMainLooper();
 
 
-        mainService = new LSPosedService();
-        applicationService = new LSPApplicationService();
-        managerService = new LSPManagerService();
-        systemServerService = new LSPSystemServerService(systemServerMaxRetry);
+        mainService = new LFPosedService();
+        applicationService = new LFPApplicationService();
+        managerService = new LFPManagerService();
+        systemServerService = new LFPSystemServerService(systemServerMaxRetry);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             dex2OatService = new Dex2OatService();
             dex2OatService.start();
@@ -182,17 +182,17 @@ public class ServiceManager {
         throw new RuntimeException("Main thread loop unexpectedly exited");
     }
 
-    public static LSPApplicationService getApplicationService() {
+    public static LFPApplicationService getApplicationService() {
         return applicationService;
     }
 
-    public static LSPApplicationService requestApplicationService(int uid, int pid, String processName, IBinder heartBeat) {
+    public static LFPApplicationService requestApplicationService(int uid, int pid, String processName, IBinder heartBeat) {
         if (applicationService.registerHeartBeat(uid, pid, processName, heartBeat))
             return applicationService;
         else return null;
     }
 
-    public static LSPManagerService getManagerService() {
+    public static LFPManagerService getManagerService() {
         return managerService;
     }
 

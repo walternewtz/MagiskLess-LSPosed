@@ -22,7 +22,7 @@ package org.lsposed.lspd.core;
 import android.os.IBinder;
 import android.os.Process;
 
-import org.lsposed.lspd.service.ILSPApplicationService;
+import org.lsposed.lspd.service.ILFPApplicationService;
 import org.lsposed.lspd.util.ParasiticManagerHooker;
 import org.lsposed.lspd.util.Utils;
 import org.lsposed.lspd.BuildConfig;
@@ -30,13 +30,13 @@ import org.lsposed.lspd.BuildConfig;
 public class Main {
 
     public static void forkCommon(boolean isSystem, String niceName, String appDir, IBinder binder) {
-        Startup.initXposed(isSystem, niceName, appDir, ILSPApplicationService.Stub.asInterface(binder));
+        Startup.initXposed(isSystem, niceName, appDir, ILFPApplicationService.Stub.asInterface(binder));
         if ((niceName.equals(BuildConfig.MANAGER_INJECTED_PKG_NAME) || niceName.equals(BuildConfig.DEFAULT_MANAGER_PACKAGE_NAME))
                 && ParasiticManagerHooker.start()) {
             Utils.logI("Loaded manager, skipping next steps");
             return;
         }
-        Utils.logI("Loading xposed for " + niceName + "/" + Process.myUid());
+        Utils.logI("Loading fposed for " + niceName + "/" + Process.myUid());
         Startup.bootstrapXposed();
     }
 }
