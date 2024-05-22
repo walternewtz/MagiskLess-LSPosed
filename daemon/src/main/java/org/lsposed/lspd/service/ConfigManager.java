@@ -245,7 +245,7 @@ public class ConfigManager {
                 } catch (PackageParser.PackageParserException e) {
                     Log.w(TAG, "failed to parse " + module.apkPath, e);
                 }
-                module.service = new LSPInjectedModuleService(module.packageName);
+                module.service = new LFPInjectedModuleService(module.packageName);
                 modules.add(module);
             }
         }
@@ -633,7 +633,7 @@ public class ConfigManager {
                 }
                 m.appId = pkgInfo.applicationInfo.uid;
                 m.applicationInfo = pkgInfo.applicationInfo;
-                m.service = oldModule != null ? oldModule.service : new LSPInjectedModuleService(m.packageName);
+                m.service = oldModule != null ? oldModule.service : new LFPInjectedModuleService(m.packageName);
                 return true;
             }).forEach(m -> {
                 var file = ConfigFileManager.loadModule(m.apkPath, dexObfuscate);
@@ -815,7 +815,7 @@ public class ConfigManager {
                 return false;
             }
             try (var zip = new ZipFile(toGlobalNamespace(apk))) {
-                return zip.getEntry("META-INF/xposed/java_init.list") != null || zip.getEntry("assets/fposed_init") != null;
+                return zip.getEntry("META-INF/fposed/java_init.list") != null || zip.getEntry("assets/fposed_init") != null;
             } catch (IOException e) {
                 return false;
             }

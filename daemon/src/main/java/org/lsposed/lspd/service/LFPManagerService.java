@@ -66,7 +66,7 @@ import hidden.HiddenApiBridge;
 import io.github.libxposed.service.IXposedService;
 import rikka.parcelablelist.ParcelableListSlice;
 
-public class LSPManagerService extends ILSPManagerService.Stub {
+public class LFPManagerService extends ILSPManagerService.Stub {
     // this maybe useful when obtaining the manager binder
     private static String RANDOM_UUID = null;
 
@@ -126,7 +126,7 @@ public class LSPManagerService extends ILSPManagerService.Stub {
     private boolean pendingManager = false;
     private int managerPid = -1;
 
-    LSPManagerService() {
+    LFPManagerService() {
     }
 
     private static Intent getManagerIntent() {
@@ -613,9 +613,9 @@ public class LSPManagerService extends ILSPManagerService.Stub {
     public void setEnableStatusNotification(boolean enable) {
         ConfigManager.getInstance().setEnableStatusNotification(enable);
         if (enable) {
-            LSPNotificationManager.notifyStatusNotification();
+            LFPNotificationManager.notifyStatusNotification();
         } else {
-            LSPNotificationManager.cancelStatusNotification();
+            LFPNotificationManager.cancelStatusNotification();
         }
     }
 

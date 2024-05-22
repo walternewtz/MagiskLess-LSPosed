@@ -7,7 +7,7 @@ import android.util.ArraySet;
 
 import androidx.annotation.Nullable;
 
-import org.lsposed.lspd.service.ILSPInjectedModuleService;
+import org.lsposed.lspd.service.ILFPInjectedModuleService;
 import org.lsposed.lspd.service.IRemotePreferenceCallback;
 
 import java.util.HashSet;
@@ -47,7 +47,7 @@ public class LFPosedRemotePreferences implements SharedPreferences {
         }
     };
 
-    public LFPosedRemotePreferences(ILSPInjectedModuleService service, String group) throws RemoteException {
+    public LFPosedRemotePreferences(ILFPInjectedModuleService service, String group) throws RemoteException {
         Bundle output = service.requestRemotePreferences(group, callback);
         if (output.containsKey("map")) {
             mMap.putAll((Map<String, Object>) output.getSerializable("map"));

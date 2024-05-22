@@ -1,6 +1,6 @@
 package org.lsposed.lspd.service;
 
-import static org.lsposed.lspd.service.LSPModuleService.FILES_DIR;
+import static org.lsposed.lspd.service.LFPModuleService.FILES_DIR;
 import static org.lsposed.lspd.service.PackageService.PER_USER_RANGE;
 
 import android.os.Binder;
@@ -17,7 +17,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import io.github.libxposed.service.IXposedService;
 
-public class LSPInjectedModuleService extends ILSPInjectedModuleService.Stub {
+public class LFPInjectedModuleService extends ILFPInjectedModuleService.Stub {
 
     private static final String TAG = "LSPosedInjectedModuleService";
 
@@ -25,7 +25,7 @@ public class LSPInjectedModuleService extends ILSPInjectedModuleService.Stub {
 
     Map<String, Set<IRemotePreferenceCallback>> callbacks = new ConcurrentHashMap<>();
 
-    LSPInjectedModuleService(String packageName) {
+    LFPInjectedModuleService(String packageName) {
         mPackageName = packageName;
     }
 

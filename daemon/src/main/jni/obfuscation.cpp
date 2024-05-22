@@ -40,7 +40,7 @@ using namespace lsplant;
 namespace {
 std::mutex init_lock{};
 std::map<const std::string, std::string> signatures = {
-        {"Lde/robv/android/xposed/", ""},
+        {"Lde/robv/android/fposed/", ""},
         { "Landroid/app/AndroidApp", ""},
         { "Landroid/content/res/XRes", ""},
         { "Landroid/content/res/XModule", ""},

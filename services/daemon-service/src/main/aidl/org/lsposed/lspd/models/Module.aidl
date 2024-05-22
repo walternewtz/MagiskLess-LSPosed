@@ -1,6 +1,6 @@
 package org.lsposed.lspd.models;
 import org.lsposed.lspd.models.PreLoadedApk;
-import org.lsposed.lspd.service.ILSPInjectedModuleService;
+import org.lsposed.lspd.service.ILFPInjectedModuleService;
 
 parcelable Module {
     String packageName;
@@ -8,5 +8,5 @@ parcelable Module {
     String apkPath;
     PreLoadedApk file;
     ApplicationInfo applicationInfo;
-    ILSPInjectedModuleService service;
+    ILFPInjectedModuleService service;
 }

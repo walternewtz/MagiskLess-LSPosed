@@ -36,7 +36,7 @@ import org.lsposed.lspd.hooker.LoadedApkCreateCLHooker;
 import org.lsposed.lspd.hooker.OpenDexFileHooker;
 import org.lsposed.lspd.impl.LFPosedContext;
 import org.lsposed.lspd.impl.LFPosedHelper;
-import org.lsposed.lspd.service.ILSPApplicationService;
+import org.lsposed.lspd.service.ILFPApplicationService;
 import org.lsposed.lspd.util.Utils;
 
 import java.util.List;
@@ -73,7 +73,7 @@ public class Startup {
         }
     }
 
-    public static void initXposed(boolean isSystem, String processName, String appDir, ILSPApplicationService service) {
+    public static void initXposed(boolean isSystem, String processName, String appDir, ILFPApplicationService service) {
         // init logger
         ApplicationServiceClient.Init(service, processName);
         FposedBridge.initXResources();
