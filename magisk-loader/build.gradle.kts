@@ -53,7 +53,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "org.lsposed.lfpd"
+        applicationId = "org.lsposed.lspd"
         multiDexEnabled = false
 
         buildConfigField(
