@@ -34,8 +34,8 @@ import org.lsposed.lspd.hooker.HandleSystemServerProcessHooker;
 import org.lsposed.lspd.hooker.LoadedApkCtorHooker;
 import org.lsposed.lspd.hooker.LoadedApkCreateCLHooker;
 import org.lsposed.lspd.hooker.OpenDexFileHooker;
-import org.lsposed.lspd.impl.LSPosedContext;
-import org.lsposed.lspd.impl.LSPosedHelper;
+import org.lsposed.lspd.impl.LFPosedContext;
+import org.lsposed.lspd.impl.LFPosedHelper;
 import org.lsposed.lspd.service.ILSPApplicationService;
 import org.lsposed.lspd.util.Utils;
 
@@ -48,19 +48,19 @@ import de.robv.android.fposed.FposedInit;
 public class Startup {
     private static void startBootstrapHook(boolean isSystem) {
         Utils.logD("startBootstrapHook starts: isSystem = " + isSystem);
-        LSPosedHelper.hookMethod(CrashDumpHooker.class, Thread.class, "dispatchUncaughtException", Throwable.class);
+        LFPosedHelper.hookMethod(CrashDumpHooker.class, Thread.class, "dispatchUncaughtException", Throwable.class);
         if (isSystem) {
-            LSPosedHelper.hookAllMethods(HandleSystemServerProcessHooker.class, ZygoteInit.class, "handleSystemServerProcess");
+            LFPosedHelper.hookAllMethods(HandleSystemServerProcessHooker.class, ZygoteInit.class, "handleSystemServerProcess");
         } else {
-            LSPosedHelper.hookAllMethods(OpenDexFileHooker.class, DexFile.class, "openDexFile");
-            LSPosedHelper.hookAllMethods(OpenDexFileHooker.class, DexFile.class, "openInMemoryDexFile");
-            LSPosedHelper.hookAllMethods(OpenDexFileHooker.class, DexFile.class, "openInMemoryDexFiles");
+            LFPosedHelper.hookAllMethods(OpenDexFileHooker.class, DexFile.class, "openDexFile");
+            LFPosedHelper.hookAllMethods(OpenDexFileHooker.class, DexFile.class, "openInMemoryDexFile");
+            LFPosedHelper.hookAllMethods(OpenDexFileHooker.class, DexFile.class, "openInMemoryDexFiles");
         }
-        LSPosedHelper.hookConstructor(LoadedApkCtorHooker.class, LoadedApk.class,
+        LFPosedHelper.hookConstructor(LoadedApkCtorHooker.class, LoadedApk.class,
                 ActivityThread.class, ApplicationInfo.class, CompatibilityInfo.class,
                 ClassLoader.class, boolean.class, boolean.class, boolean.class);
-        LSPosedHelper.hookMethod(LoadedApkCreateCLHooker.class, LoadedApk.class, "createOrUpdateClassLoaderLocked", List.class);
-        LSPosedHelper.hookAllMethods(AttachHooker.class, ActivityThread.class, "attach");
+        LFPosedHelper.hookMethod(LoadedApkCreateCLHooker.class, LoadedApk.class, "createOrUpdateClassLoaderLocked", List.class);
+        LFPosedHelper.hookAllMethods(AttachHooker.class, ActivityThread.class, "attach");
     }
 
     public static void bootstrapXposed() {
@@ -78,9 +78,9 @@ public class Startup {
         ApplicationServiceClient.Init(service, processName);
         FposedBridge.initXResources();
         FposedInit.startsSystemServer = isSystem;
-        LSPosedContext.isSystemServer = isSystem;
-        LSPosedContext.appDir = appDir;
-        LSPosedContext.processName = processName;
+        LFPosedContext.isSystemServer = isSystem;
+        LFPosedContext.appDir = appDir;
+        LFPosedContext.processName = processName;
         PrebuiltMethodsDeopter.deoptBootMethods(); // do it once for secondary zygote
     }
 }

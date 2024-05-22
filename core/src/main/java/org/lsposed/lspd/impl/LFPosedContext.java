@@ -43,9 +43,9 @@ import io.github.libxposed.api.utils.DexParser;
 
 
 @SuppressLint("NewApi")
-public class LSPosedContext implements XposedInterface {
+public class LFPosedContext implements XposedInterface {
 
-    private static final String TAG = "LSPosedContext";
+    private static final String TAG = "LFPosedContext";
 
     public static boolean isSystemServer;
     public static String appDir;
@@ -58,7 +58,7 @@ public class LSPosedContext implements XposedInterface {
     private final ILSPInjectedModuleService service;
     private final Map<String, SharedPreferences> mRemotePrefs = new ConcurrentHashMap<>();
 
-    LSPosedContext(String packageName, ApplicationInfo applicationInfo, ILSPInjectedModuleService service) {
+    LFPosedContext(String packageName, ApplicationInfo applicationInfo, ILSPInjectedModuleService service) {
         this.mPackageName = packageName;
         this.mApplicationInfo = applicationInfo;
         this.service = service;
@@ -102,7 +102,7 @@ public class LSPosedContext implements XposedInterface {
                 Log.e(TAG, "  This may cause strange issues and must be fixed by the module developer.");
                 return false;
             }
-            var ctx = new LSPosedContext(module.packageName, module.applicationInfo, module.service);
+            var ctx = new LFPosedContext(module.packageName, module.applicationInfo, module.service);
             for (var entry : module.file.moduleClassNames) {
                 var moduleClass = mcl.loadClass(entry);
                 Log.d(TAG, "  Loading class " + moduleClass);
@@ -167,25 +167,25 @@ public class LSPosedContext implements XposedInterface {
     @Override
     @NonNull
     public MethodUnhooker<Method> hook(@NonNull Method origin, @NonNull Class<? extends Hooker> hooker) {
-        return LSPosedBridge.doHook(origin, PRIORITY_DEFAULT, hooker);
+        return LFPosedBridge.doHook(origin, PRIORITY_DEFAULT, hooker);
     }
 
     @Override
     @NonNull
     public MethodUnhooker<Method> hook(@NonNull Method origin, int priority, @NonNull Class<? extends Hooker> hooker) {
-        return LSPosedBridge.doHook(origin, priority, hooker);
+        return LFPosedBridge.doHook(origin, priority, hooker);
     }
 
     @Override
     @NonNull
     public <T> MethodUnhooker<Constructor<T>> hook(@NonNull Constructor<T> origin, @NonNull Class<? extends Hooker> hooker) {
-        return LSPosedBridge.doHook(origin, PRIORITY_DEFAULT, hooker);
+        return LFPosedBridge.doHook(origin, PRIORITY_DEFAULT, hooker);
     }
 
     @Override
     @NonNull
     public <T> MethodUnhooker<Constructor<T>> hook(@NonNull Constructor<T> origin, int priority, @NonNull Class<? extends Hooker> hooker) {
-        return LSPosedBridge.doHook(origin, priority, hooker);
+        return LFPosedBridge.doHook(origin, priority, hooker);
     }
 
     private static boolean doDeoptimize(@NonNull Executable method) {
@@ -303,7 +303,7 @@ public class LSPosedContext implements XposedInterface {
         if (name == null) throw new IllegalArgumentException("name must not be null");
         return mRemotePrefs.computeIfAbsent(name, n -> {
             try {
-                return new LSPosedRemotePreferences(service, n);
+                return new LFPosedRemotePreferences(service, n);
             } catch (RemoteException e) {
                 log("Failed to get remote preferences", e);
                 throw new XposedFrameworkError(e);

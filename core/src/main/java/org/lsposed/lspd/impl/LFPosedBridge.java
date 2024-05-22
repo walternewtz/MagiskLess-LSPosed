@@ -18,9 +18,9 @@ import io.github.libxposed.api.annotations.BeforeInvocation;
 import io.github.libxposed.api.annotations.XposedHooker;
 import io.github.libxposed.api.errors.HookFailedError;
 
-public class LSPosedBridge {
+public class LFPosedBridge {
 
-    private static final String TAG = "LSPosed-Bridge";
+    private static final String TAG = "LFPosed-Bridge";
 
     private static final String castException = "Return value's type from hook callback does not match the hooked method";
 
@@ -82,8 +82,29 @@ public class LSPosedBridge {
 
         // This method is quite critical. We should try not to use system methods to avoid
         // endless recursive
+        /*
+         --------------------------
+        栈信息      com.wthq.emptyv2.encrypt.Encryptstack.getStackTraceMessage
+        栈信息      com.wthq.emptyv2.encrypt.Encryptstack.access$200
+        栈信息      com.wthq.emptyv2.encrypt.Encryptstack$11.afterHookedMethod
+        栈信息      de.robv.android.fposed.FposedBridge$LegacyApiSupport.handleAfter
+        栈信息      L.callback (这个 callback 即使下面这个方法)
+        栈信息      LSPHooker_.getInstance
+        栈信息      asd.b0.b
+        栈信息      com.kwai.robust2.patchmanager.b.v
+        栈信息      com.kwai.robust2.patchmanager.b.c
+        栈信息      com.kwai.robust2.patchmanager.b.m
+        栈信息      pq7.i.l
+        栈信息      nq7.l.run
+        栈信息      android.os.Handler.handleCallback
+        栈信息      android.os.Handler.dispatchMessage
+        栈信息      android.os.Looper.loopOnce
+        栈信息      android.os.Looper.loop
+        栈信息      android.os.HandlerThread.run
+         --------------------------
+        */
         public Object callback(Object[] args) throws Throwable {
-            LSPosedHookCallback<T> callback = new LSPosedHookCallback<>();
+            LFPosedHookCallback<T> callback = new LFPosedHookCallback<>();
 
             var array = ((Object[]) params);
 
@@ -131,7 +152,7 @@ public class LSPosedBridge {
                         ctxArray[beforeIdx] = hooker.beforeInvocation.invoke(null, callback);
                     }
                 } catch (Throwable t) {
-                    LSPosedBridge.log(t);
+                    LFPosedBridge.log(t);
 
                     // reset result (ignoring what the unexpectedly exiting callback did)
                     callback.setResult(null);
@@ -177,7 +198,7 @@ public class LSPosedBridge {
                         hooker.afterInvocation.invoke(null, callback, ctxArray[afterIdx]);
                     }
                 } catch (Throwable t) {
-                    LSPosedBridge.log(t);
+                    LFPosedBridge.log(t);
 
                     // reset to last result (ignoring what the unexpectedly exiting callback did)
                     if (lastThrowable == null) {
@@ -213,7 +234,7 @@ public class LSPosedBridge {
     doHook(T hookMethod, int priority, Class<? extends XposedInterface.Hooker> hooker) {
         if (Modifier.isAbstract(hookMethod.getModifiers())) {
             throw new IllegalArgumentException("Cannot hook abstract methods: " + hookMethod);
-        } else if (hookMethod.getDeclaringClass().getClassLoader() == LSPosedContext.class.getClassLoader()) {
+        } else if (hookMethod.getDeclaringClass().getClassLoader() == LFPosedContext.class.getClassLoader()) {
             throw new IllegalArgumentException("Do not allow hooking inner methods");
         } else if (hookMethod.getDeclaringClass() == Method.class && hookMethod.getName().equals("invoke")) {
             throw new IllegalArgumentException("Cannot hook Method.invoke");
@@ -265,9 +286,9 @@ public class LSPosedBridge {
         }
         try {
             if (beforeInvocation == null) {
-                beforeInvocation = LSPosedBridge.class.getMethod("dummyCallback");
+                beforeInvocation = LFPosedBridge.class.getMethod("dummyCallback");
             } else if (afterInvocation == null) {
-                afterInvocation = LSPosedBridge.class.getMethod("dummyCallback");
+                afterInvocation = LFPosedBridge.class.getMethod("dummyCallback");
             } else {
                 var ret = beforeInvocation.getReturnType();
                 var params = afterInvocation.getParameterTypes();
@@ -279,8 +300,8 @@ public class LSPosedBridge {
             throw new HookFailedError(e);
         }
 
-        var callback = new LSPosedBridge.HookerCallback(beforeInvocation, afterInvocation);
-        if (HookBridge.hookMethod(true, hookMethod, LSPosedBridge.NativeHooker.class, priority, callback)) {
+        var callback = new LFPosedBridge.HookerCallback(beforeInvocation, afterInvocation);
+        if (HookBridge.hookMethod(true, hookMethod, LFPosedBridge.NativeHooker.class, priority, callback)) {
             return new XposedInterface.MethodUnhooker<>() {
                 @NonNull
                 @Override

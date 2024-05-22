@@ -23,7 +23,7 @@ package org.lsposed.lspd.hooker;
 import android.annotation.SuppressLint;
 
 import org.lsposed.lspd.deopt.PrebuiltMethodsDeopter;
-import org.lsposed.lspd.impl.LSPosedHelper;
+import org.lsposed.lspd.impl.LFPosedHelper;
 import org.lsposed.lspd.util.Hookers;
 
 import io.github.libxposed.api.XposedInterface;
@@ -46,7 +46,7 @@ public class HandleSystemServerProcessHooker implements XposedInterface.Hooker {
             // deopt methods in SYSTEMSERVERCLASSPATH
             PrebuiltMethodsDeopter.deoptSystemServerMethods(systemServerCL);
             var clazz = Class.forName("com.android.server.SystemServer", false, systemServerCL);
-            LSPosedHelper.hookAllMethods(StartBootstrapServicesHooker.class, clazz, "startBootstrapServices");
+            LFPosedHelper.hookAllMethods(StartBootstrapServicesHooker.class, clazz, "startBootstrapServices");
         } catch (Throwable t) {
             Hookers.logE("error when hooking systemMain", t);
         }
