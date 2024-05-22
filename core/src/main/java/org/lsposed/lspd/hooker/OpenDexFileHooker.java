@@ -2,7 +2,7 @@ package org.lsposed.lspd.hooker;
 
 import android.os.Build;
 
-import org.lsposed.lspd.impl.LSPosedBridge;
+import org.lsposed.lspd.impl.LFPosedBridge;
 import org.lsposed.lspd.nativebridge.HookBridge;
 
 import io.github.libxposed.api.XposedInterface;
@@ -21,10 +21,10 @@ public class OpenDexFileHooker implements XposedInterface.Hooker {
             }
         }
         if (Build.VERSION.SDK_INT == Build.VERSION_CODES.P && classLoader == null) {
-            classLoader = LSPosedBridge.class.getClassLoader();
+            classLoader = LFPosedBridge.class.getClassLoader();
         }
         while (classLoader != null) {
-            if (classLoader == LSPosedBridge.class.getClassLoader()) {
+            if (classLoader == LFPosedBridge.class.getClassLoader()) {
                 HookBridge.setTrusted(callback.getResult());
                 return;
             } else {

@@ -8,7 +8,7 @@ import java.lang.reflect.Member;
 
 import io.github.libxposed.api.XposedInterface;
 
-public class LSPosedHookCallback<T extends Executable> implements XposedInterface.BeforeHookCallback, XposedInterface.AfterHookCallback {
+public class LFPosedHookCallback<T extends Executable> implements XposedInterface.BeforeHookCallback, XposedInterface.AfterHookCallback {
 
     public Member method;
 
@@ -22,7 +22,7 @@ public class LSPosedHookCallback<T extends Executable> implements XposedInterfac
 
     public boolean isSkipped;
 
-    public LSPosedHookCallback() {
+    public LFPosedHookCallback() {
     }
 
     // Both before and after

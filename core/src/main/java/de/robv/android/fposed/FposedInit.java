@@ -41,7 +41,7 @@ import android.os.Process;
 import android.util.ArrayMap;
 import android.util.Log;
 
-import org.lsposed.lspd.impl.LSPosedContext;
+import org.lsposed.lspd.impl.LFPosedContext;
 import org.lsposed.lspd.models.PreLoadedApk;
 import org.lsposed.lspd.nativebridge.NativeAPI;
 import org.lsposed.lspd.nativebridge.ResourcesHook;
@@ -240,7 +240,7 @@ public final class FposedInit {
         var packages = (ArrayMap<?, ?>) FposedHelpers.getObjectField(at, "mPackages");
         serviceClient.getModulesList().forEach(module -> {
             loadedModules.put(module.packageName, Optional.empty());
-            if (!LSPosedContext.loadModule(at, module)) {
+            if (!LFPosedContext.loadModule(at, module)) {
                 loadedModules.remove(module.packageName);
             } else {
                 packages.remove(module.packageName);

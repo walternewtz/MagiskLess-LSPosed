@@ -24,7 +24,7 @@ import static org.lsposed.lspd.util.Utils.logD;
 
 import androidx.annotation.NonNull;
 
-import org.lsposed.lspd.impl.LSPosedContext;
+import org.lsposed.lspd.impl.LFPosedContext;
 import org.lsposed.lspd.util.Hookers;
 
 import de.robv.android.fposed.FposedBridge;
@@ -53,7 +53,7 @@ public class StartBootstrapServicesHooker implements XposedInterface.Hooker {
             lpparam.isFirstApplication = true;
             FC_LoadPackage.callAll(lpparam);
 
-            LSPosedContext.callOnSystemServerLoaded(new XposedModuleInterface.SystemServerLoadedParam() {
+            LFPosedContext.callOnSystemServerLoaded(new XposedModuleInterface.SystemServerLoadedParam() {
                 @Override
                 @NonNull
                 public ClassLoader getClassLoader() {

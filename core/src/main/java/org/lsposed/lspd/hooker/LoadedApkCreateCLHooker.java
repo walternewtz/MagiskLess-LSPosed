@@ -30,7 +30,7 @@ import android.os.Build;
 
 import androidx.annotation.NonNull;
 
-import org.lsposed.lspd.impl.LSPosedContext;
+import org.lsposed.lspd.impl.LFPosedContext;
 import org.lsposed.lspd.util.Hookers;
 import org.lsposed.lspd.util.MetaDataReader;
 import org.lsposed.lspd.util.Utils;
@@ -130,7 +130,7 @@ public class LoadedApkCreateCLHooker implements XposedInterface.Hooker {
             Hookers.logD("Call handleLoadedPackage: packageName=" + lpparam.packageName + " processName=" + lpparam.processName + " isFirstPackage=" + isFirstPackage + " classLoader=" + lpparam.classLoader + " appInfo=" + lpparam.appInfo);
             FC_LoadPackage.callAll(lpparam);
 
-            LSPosedContext.callOnPackageLoaded(new XposedModuleInterface.PackageLoadedParam() {
+            LFPosedContext.callOnPackageLoaded(new XposedModuleInterface.PackageLoadedParam() {
                 @NonNull
                 @Override
                 public String getPackageName() {

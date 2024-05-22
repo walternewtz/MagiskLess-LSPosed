@@ -25,8 +25,8 @@ import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.util.Log;
 
-import org.lsposed.lspd.impl.LSPosedBridge;
-import org.lsposed.lspd.impl.LSPosedHookCallback;
+import org.lsposed.lspd.impl.LFPosedBridge;
+import org.lsposed.lspd.impl.LFPosedHookCallback;
 import org.lsposed.lspd.nativebridge.HookBridge;
 import org.lsposed.lspd.nativebridge.ResourcesHook;
 
@@ -62,7 +62,7 @@ public final class FposedBridge {
     /**
      * @hide
      */
-    public static final String TAG = "LSPosed-Bridge";
+    public static final String TAG = "LFPosed-Bridge";
 
     /**
      * @deprecated Use {@link #getXposedVersion()} instead.
@@ -207,7 +207,7 @@ public final class FposedBridge {
             throw new IllegalArgumentException("callback should not be null!");
         }
 
-        if (!HookBridge.hookMethod(false, (Executable) hookMethod, LSPosedBridge.NativeHooker.class, callback.priority, callback)) {
+        if (!HookBridge.hookMethod(false, (Executable) hookMethod, LFPosedBridge.NativeHooker.class, callback.priority, callback)) {
             log("Failed to hook " + hookMethod);
             return null;
         }
@@ -385,12 +385,12 @@ public final class FposedBridge {
 
     public static class LegacyApiSupport<T extends Executable> {
         private final FC_MethodHook.MethodHookParam<T> param;
-        private final LSPosedHookCallback<T> callback;
+        private final LFPosedHookCallback<T> callback;
         private final Object[] snapshot;
 
         private int beforeIdx;
 
-        public LegacyApiSupport(LSPosedHookCallback<T> callback, Object[] legacySnapshot) {
+        public LegacyApiSupport(LFPosedHookCallback<T> callback, Object[] legacySnapshot) {
             this.param = new FC_MethodHook.MethodHookParam<>();
             this.callback = callback;
             this.snapshot = legacySnapshot;
@@ -442,7 +442,7 @@ public final class FposedBridge {
             syncronizeApi(param, callback, false);
         }
 
-        private void syncronizeApi(FC_MethodHook.MethodHookParam<T> param, LSPosedHookCallback<T> callback, boolean forward) {
+        private void syncronizeApi(FC_MethodHook.MethodHookParam<T> param, LFPosedHookCallback<T> callback, boolean forward) {
             if (forward) {
                 param.method = callback.method;
                 param.thisObject = callback.thisObject;

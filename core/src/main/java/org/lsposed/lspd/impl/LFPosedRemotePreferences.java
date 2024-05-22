@@ -17,7 +17,7 @@ import java.util.TreeMap;
 import java.util.concurrent.ConcurrentHashMap;
 
 @SuppressWarnings("unchecked")
-public class LSPosedRemotePreferences implements SharedPreferences {
+public class LFPosedRemotePreferences implements SharedPreferences {
 
     private final Map<String, Object> mMap = new ConcurrentHashMap<>();
 
@@ -41,13 +41,13 @@ public class LSPosedRemotePreferences implements SharedPreferences {
             }
             synchronized (mListeners) {
                 for (var key : changes) {
-                    mListeners.forEach(listener -> listener.onSharedPreferenceChanged(LSPosedRemotePreferences.this, key));
+                    mListeners.forEach(listener -> listener.onSharedPreferenceChanged(LFPosedRemotePreferences.this, key));
                 }
             }
         }
     };
 
-    public LSPosedRemotePreferences(ILSPInjectedModuleService service, String group) throws RemoteException {
+    public LFPosedRemotePreferences(ILSPInjectedModuleService service, String group) throws RemoteException {
         Bundle output = service.requestRemotePreferences(group, callback);
         if (output.containsKey("map")) {
             mMap.putAll((Map<String, Object>) output.getSerializable("map"));
