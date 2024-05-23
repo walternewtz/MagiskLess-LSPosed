@@ -47,7 +47,7 @@
     <string name="install">Įdiekite</string>
     <string name="install_summary">Bakstelėkite, jei norite įdiegti LSPosed</string>
     <string name="not_installed">Neįdiegta</string>
-    <string name="not_install_summary">\"LSPosed\" nėra įdiegta</string>
+    <string name="not_install_summary">\"LFPosed\" nėra įdiegta</string>
     <string name="activated">Aktyvuota</string>
     <string name="partial_activated">Iš dalies aktyvuota</string>
     <string name="selinux_policy_not_loaded_summary">\"SEPolicy\" nėra tinkamai įkelta</string>
@@ -119,7 +119,7 @@
     <string name="module_installed">Pridėta %1$s naudotojui %2$s</string>
     <string name="module_install_failed">Nepavyko pridėti modulio</string>
     <string name="install_to_user">Įdiegti naudotojui %s</string>
-    <string name="install_to_user_message">Norite įdiegti %1$s naudotojui %2$s? Rekomenduojama įdiegti rankiniu būdu, priverstinis diegimas per LSPosed gali sukelti problemų.</string>
+    <string name="install_to_user_message">Norite įdiegti %1$s naudotojui %2$s? Rekomenduojama įdiegti rankiniu būdu, priverstinis diegimas per LFPosed gali sukelti problemų.</string>
     <string name="expand">išplėsti</string>
     <string name="collapse">žlugimas</string>
     <!-- AppListActivity -->
