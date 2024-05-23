@@ -40,7 +40,7 @@ import androidx.core.text.HtmlCompat;
 import androidx.core.view.MenuProvider;
 import androidx.fragment.app.DialogFragment;
 
-import org.lsposed.lspd.ILSPManagerService;
+import org.lsposed.lspd.ILFPManagerService;
 import org.lsposed.manager.BuildConfig;
 import org.lsposed.manager.ConfigManager;
 import org.lsposed.manager.R;
@@ -127,7 +127,7 @@ public class HomeFragment extends BaseFragment implements MenuProvider {
             } else {
                 binding.updateCard.setVisibility(View.GONE);
             }
-            boolean dex2oatAbnormal = ConfigManager.getDex2OatWrapperCompatibility() != ILSPManagerService.DEX2OAT_OK && !ConfigManager.dex2oatFlagsLoaded();
+            boolean dex2oatAbnormal = ConfigManager.getDex2OatWrapperCompatibility() != ILFPManagerService.DEX2OAT_OK && !ConfigManager.dex2oatFlagsLoaded();
             var sepolicyAbnormal = !ConfigManager.isSepolicyLoaded();
             var systemServerAbnormal = !ConfigManager.systemServerRequested();
             if (sepolicyAbnormal || systemServerAbnormal || dex2oatAbnormal) {
@@ -184,15 +184,15 @@ public class HomeFragment extends BaseFragment implements MenuProvider {
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
                 binding.dex2oatWrapper.setText(String.format(LocaleDelegate.getDefaultLocale(), "%s (%s)", getString(R.string.unsupported), getString(R.string.android_version_unsatisfied)));
             } else switch (ConfigManager.getDex2OatWrapperCompatibility()) {
-                case ILSPManagerService.DEX2OAT_OK ->
+                case ILFPManagerService.DEX2OAT_OK ->
                         binding.dex2oatWrapper.setText(R.string.supported);
-                case ILSPManagerService.DEX2OAT_CRASHED ->
+                case ILFPManagerService.DEX2OAT_CRASHED ->
                         binding.dex2oatWrapper.setText(String.format(LocaleDelegate.getDefaultLocale(), "%s (%s)", getString(R.string.unsupported), getString(R.string.crashed)));
-                case ILSPManagerService.DEX2OAT_MOUNT_FAILED ->
+                case ILFPManagerService.DEX2OAT_MOUNT_FAILED ->
                         binding.dex2oatWrapper.setText(String.format(LocaleDelegate.getDefaultLocale(), "%s (%s)", getString(R.string.unsupported), getString(R.string.mount_failed)));
-                case ILSPManagerService.DEX2OAT_SELINUX_PERMISSIVE ->
+                case ILFPManagerService.DEX2OAT_SELINUX_PERMISSIVE ->
                         binding.dex2oatWrapper.setText(String.format(LocaleDelegate.getDefaultLocale(), "%s (%s)", getString(R.string.unsupported), getString(R.string.selinux_permissive)));
-                case ILSPManagerService.DEX2OAT_SEPOLICY_INCORRECT ->
+                case ILFPManagerService.DEX2OAT_SEPOLICY_INCORRECT ->
                         binding.dex2oatWrapper.setText(String.format(LocaleDelegate.getDefaultLocale(), "%s (%s)", getString(R.string.unsupported), getString(R.string.sepolicy_incorrect)));
             }
         } else {

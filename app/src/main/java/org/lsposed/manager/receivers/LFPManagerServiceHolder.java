@@ -24,25 +24,25 @@ import android.os.Process;
 import android.os.RemoteException;
 import android.system.Os;
 
-import org.lsposed.lspd.ILSPManagerService;
+import org.lsposed.lspd.ILFPManagerService;
 
-public class LSPManagerServiceHolder implements IBinder.DeathRecipient {
-    private static LSPManagerServiceHolder holder = null;
-    private static ILSPManagerService service = null;
+public class LFPManagerServiceHolder implements IBinder.DeathRecipient {
+    private static LFPManagerServiceHolder holder = null;
+    private static ILFPManagerService service = null;
 
     public static void init(IBinder binder) {
         if (holder == null) {
-            holder = new LSPManagerServiceHolder(binder);
+            holder = new LFPManagerServiceHolder(binder);
         }
     }
 
-    public static ILSPManagerService getService() {
+    public static ILFPManagerService getService() {
         return service;
     }
 
-    private LSPManagerServiceHolder(IBinder binder) {
+    private LFPManagerServiceHolder(IBinder binder) {
         linkToDeath(binder);
-        service = ILSPManagerService.Stub.asInterface(binder);
+        service = ILFPManagerService.Stub.asInterface(binder);
     }
 
     private void linkToDeath(IBinder binder) {

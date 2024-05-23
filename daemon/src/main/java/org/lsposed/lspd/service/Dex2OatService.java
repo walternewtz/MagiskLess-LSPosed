@@ -19,11 +19,11 @@
 
 package org.lsposed.lspd.service;
 
-import static org.lsposed.lspd.ILSPManagerService.DEX2OAT_CRASHED;
-import static org.lsposed.lspd.ILSPManagerService.DEX2OAT_MOUNT_FAILED;
-import static org.lsposed.lspd.ILSPManagerService.DEX2OAT_OK;
-import static org.lsposed.lspd.ILSPManagerService.DEX2OAT_SELINUX_PERMISSIVE;
-import static org.lsposed.lspd.ILSPManagerService.DEX2OAT_SEPOLICY_INCORRECT;
+import static org.lsposed.lspd.ILFPManagerService.DEX2OAT_CRASHED;
+import static org.lsposed.lspd.ILFPManagerService.DEX2OAT_MOUNT_FAILED;
+import static org.lsposed.lspd.ILFPManagerService.DEX2OAT_OK;
+import static org.lsposed.lspd.ILFPManagerService.DEX2OAT_SELINUX_PERMISSIVE;
+import static org.lsposed.lspd.ILFPManagerService.DEX2OAT_SEPOLICY_INCORRECT;
 
 import android.net.LocalServerSocket;
 import android.os.Build;

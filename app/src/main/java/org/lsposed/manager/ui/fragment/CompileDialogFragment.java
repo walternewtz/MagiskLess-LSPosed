@@ -35,7 +35,7 @@ import androidx.fragment.app.FragmentManager;
 import org.lsposed.manager.App;
 import org.lsposed.manager.R;
 import org.lsposed.manager.databinding.FragmentCompileDialogBinding;
-import org.lsposed.manager.receivers.LSPManagerServiceHolder;
+import org.lsposed.manager.receivers.LFPManagerServiceHolder;
 import org.lsposed.manager.ui.dialog.BlurBehindDialogBuilder;
 
 import java.lang.ref.WeakReference;
@@ -83,8 +83,8 @@ public class CompileDialogFragment extends AppCompatDialogFragment {
         @Override
         protected Throwable doInBackground(String... commands) {
             try {
-                LSPManagerServiceHolder.getService().clearApplicationProfileData(commands[0]);
-                if (LSPManagerServiceHolder.getService().performDexOptMode(commands[0])) {
+                LFPManagerServiceHolder.getService().clearApplicationProfileData(commands[0]);
+                if (LFPManagerServiceHolder.getService().performDexOptMode(commands[0])) {
                     return null;
                 } else {
                     return new UnknownError();

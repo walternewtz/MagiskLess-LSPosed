@@ -5,7 +5,7 @@ import org.lsposed.lspd.models.UserInfo;
 import org.lsposed.lspd.models.Application;
 
 
-interface ILSPManagerService {
+interface ILFPManagerService {
     const int DEX2OAT_OK = 0;
     const int DEX2OAT_CRASHED = 1;
     const int DEX2OAT_MOUNT_FAILED = 2;

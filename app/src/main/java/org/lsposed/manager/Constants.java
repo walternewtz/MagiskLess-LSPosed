@@ -22,11 +22,11 @@ package org.lsposed.manager;
 
 import android.os.IBinder;
 
-import org.lsposed.manager.receivers.LSPManagerServiceHolder;
+import org.lsposed.manager.receivers.LFPManagerServiceHolder;
 
 public class Constants {
     public static boolean setBinder(IBinder binder) {
-        LSPManagerServiceHolder.init(binder);
-        return LSPManagerServiceHolder.getService().asBinder().isBinderAlive();
+        LFPManagerServiceHolder.init(binder);
+        return LFPManagerServiceHolder.getService().asBinder().isBinderAlive();
     }
 }

@@ -26,7 +26,7 @@ import android.webkit.WebViewFactory;
 import android.webkit.WebViewFactoryProvider;
 
 import org.lsposed.lspd.BuildConfig;
-import org.lsposed.lspd.ILSPManagerService;
+import org.lsposed.lspd.ILFPManagerService;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -101,7 +101,7 @@ public class ParasiticManagerHooker {
         }
     }
 
-    private static void hookForManager(ILSPManagerService managerService) {
+    private static void hookForManager(ILFPManagerService managerService) {
         var managerApkHooker = new FC_MethodHook() {
             @Override
             protected void beforeHookedMethod(MethodHookParam param) {
@@ -313,7 +313,7 @@ public class ParasiticManagerHooker {
             FposedHelpers.findAndHookMethod(ActivityThread.class, "performDestroyActivity", IBinder.class, boolean.class, int.class, boolean.class, stateHooker);
     }
 
-    private static void checkIntent(ILSPManagerService managerService, Intent intent) {
+    private static void checkIntent(ILFPManagerService managerService, Intent intent) {
         if (managerService == null) return;
         if (Process.myUid() != BuildConfig.MANAGER_INJECTED_UID) return;
         if (intent.getCategories() == null || !intent.getCategories().contains("org.lsposed.manager.LAUNCH_MANAGER")) {
@@ -334,7 +334,7 @@ public class ParasiticManagerHooker {
         try (var managerParcelFd = serviceClient.requestInjectedManagerBinder(binder)) {
             if (binder.size() > 0 && binder.get(0) != null && managerParcelFd != null) {
                 managerFd = managerParcelFd.detachFd();
-                var managerService = ILSPManagerService.Stub.asInterface(binder.get(0));
+                var managerService = ILFPManagerService.Stub.asInterface(binder.get(0));
                 hookForManager(managerService);
                 Utils.logD("injected manager");
                 return true;
