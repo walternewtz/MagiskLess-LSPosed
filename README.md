@@ -59,7 +59,7 @@ You can contribute translation [here](https://lsposed.crowdin.com/lsposed).
 - [Riru](https://github.com/RikkaApps/Riru): provides a way to inject code into zygote process
 - [XposedBridge](https://github.com/rovo89/XposedBridge): the OG Xposed framework APIs
 - [Dobby](https://github.com/jmpews/Dobby): used for inline hooking
-- [LSPlant](https://github.com/LSPosed/LSPlant): the core ART hooking framework
+- [LSPlant](https://github.com/1754048656/LSPlant): the core ART hooking framework
 - [EdXposed](https://github.com/ElderDrivers/EdXposed): fork source
 - ~[SandHook](https://github.com/ganyao114/SandHook/): ART hooking framework for SandHook variant~
 - ~[YAHFA](https://github.com/rk700/YAHFA): previous ART hooking framework~
