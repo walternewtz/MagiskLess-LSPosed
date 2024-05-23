@@ -51,7 +51,7 @@ import org.lsposed.manager.R;
 import org.lsposed.manager.databinding.FragmentPagerBinding;
 import org.lsposed.manager.databinding.ItemLogTextviewBinding;
 import org.lsposed.manager.databinding.SwiperefreshRecyclerviewBinding;
-import org.lsposed.manager.receivers.LSPManagerServiceHolder;
+import org.lsposed.manager.receivers.LFPManagerServiceHolder;
 import org.lsposed.manager.ui.widget.EmptyStateRecyclerView;
 
 import java.io.BufferedReader;
@@ -87,7 +87,7 @@ public class LogsFragment extends BaseFragment implements MenuProvider {
                     var cr = context.getContentResolver();
                     try (var zipFd = cr.openFileDescriptor(uri, "wt")) {
                         showHint(context.getString(R.string.logs_saving), false);
-                        LSPManagerServiceHolder.getService().getLogs(zipFd);
+                        LFPManagerServiceHolder.getService().getLogs(zipFd);
                         showHint(context.getString(R.string.logs_saved), true);
                     } catch (Throwable e) {
                         var cause = e.getCause();

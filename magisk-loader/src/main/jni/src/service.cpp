@@ -273,7 +273,7 @@ namespace lspd {
             LOGE("Service not initialized");
             return {env, nullptr};
         }
-        // Get Binder for LSPSystemServerService.
+        // Get Binder for LFPSystemServerService.
         // The binder itself was inject into system service "serial"
         auto bridge_service_name = JNI_NewStringUTF(env, SYSTEM_SERVER_BRIDGE_SERVICE_NAME);
         ScopedLocalRef<jobject> binder{env, nullptr};

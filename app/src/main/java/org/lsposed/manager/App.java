@@ -45,7 +45,7 @@ import androidx.preference.PreferenceManager;
 
 import org.lsposed.hiddenapibypass.HiddenApiBypass;
 import org.lsposed.manager.adapters.AppHelper;
-import org.lsposed.manager.receivers.LSPManagerServiceHolder;
+import org.lsposed.manager.receivers.LFPManagerServiceHolder;
 import org.lsposed.manager.repo.RepoLoader;
 import org.lsposed.manager.util.CloudflareDNS;
 import org.lsposed.manager.util.ModuleUtil;
@@ -180,7 +180,7 @@ public class App extends Application {
                 var uri = cr.insert(table, values);
                 if (uri == null) return;
                 try (var zipFd = cr.openFileDescriptor(uri, "wt")) {
-                    LSPManagerServiceHolder.getService().getLogs(zipFd);
+                    LFPManagerServiceHolder.getService().getLogs(zipFd);
                 } catch (Exception ignored) {
                     cr.delete(uri, null, null);
                 }

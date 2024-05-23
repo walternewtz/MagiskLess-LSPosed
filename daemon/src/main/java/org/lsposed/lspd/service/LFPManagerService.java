@@ -49,7 +49,7 @@ import android.view.IWindowManager;
 import androidx.annotation.NonNull;
 
 import org.lsposed.daemon.BuildConfig;
-import org.lsposed.lspd.ILSPManagerService;
+import org.lsposed.lspd.ILFPManagerService;
 import org.lsposed.lspd.models.Application;
 import org.lsposed.lspd.models.UserInfo;
 import org.lsposed.lspd.util.Utils;
@@ -66,7 +66,7 @@ import hidden.HiddenApiBridge;
 import io.github.libxposed.service.IXposedService;
 import rikka.parcelablelist.ParcelableListSlice;
 
-public class LFPManagerService extends ILSPManagerService.Stub {
+public class LFPManagerService extends ILFPManagerService.Stub {
     // this maybe useful when obtaining the manager binder
     private static String RANDOM_UUID = null;
 
