@@ -75,4 +75,4 @@ You can contribute translation [here](https://crowdin.com/project/lsposedmod).
 
 ## License
 
-LSPosed is licensed under the **GNU General Public License v3 (GPL-3)** (http://www.gnu.org/copyleft/gpl.html).
+LFPosed is licensed under the **GNU General Public License v3 (GPL-3)** (http://www.gnu.org/copyleft/gpl.html).
