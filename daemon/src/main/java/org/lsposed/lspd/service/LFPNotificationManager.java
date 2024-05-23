@@ -164,7 +164,7 @@ public class LFPNotificationManager {
                 .setOngoing(true)
                 .setAutoCancel(false)
                 .build();
-        notification.extras.putString("android.substName", "LSPosed");
+        notification.extras.putString("android.substName", "LFPosed");
         try {
             var nm = getNotificationManager();
             createNotificationChannel(nm);
@@ -251,7 +251,7 @@ public class LFPNotificationManager {
                 .setAutoCancel(true)
                 .setStyle(style)
                 .build();
-        notification.extras.putString("android.substName", "LSPosed");
+        notification.extras.putString("android.substName", "LFPosed");
         try {
             var nm = getNotificationManager();
             nm.enqueueNotificationWithTag("android", opPkg, modulePackageName,
@@ -297,7 +297,7 @@ public class LFPNotificationManager {
                                 getModuleScopeIntent(modulePackageName, moduleUserId, scopePackageName, "block", callback))
                                 .build()
                 ).build();
-        notification.extras.putString("android.substName", "LSPosed");
+        notification.extras.putString("android.substName", "LFPosed");
         try {
             var nm = getNotificationManager();
             nm.enqueueNotificationWithTag("android", opPkg, modulePackageName,

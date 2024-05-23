@@ -167,7 +167,7 @@ public class LogsFragment extends BaseFragment implements MenuProvider {
 
     private void save() {
         LocalDateTime now = LocalDateTime.now();
-        String filename = String.format(LocaleDelegate.getDefaultLocale(), "LSPosed_%s.zip", now.toString());
+        String filename = String.format(LocaleDelegate.getDefaultLocale(), "LFPosed_%s.zip", now.toString());
         try {
             saveLogsLauncher.launch(filename);
         } catch (ActivityNotFoundException e) {

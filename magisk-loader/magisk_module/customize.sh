@@ -36,7 +36,7 @@ enforce_install_from_magisk_app() {
 }
 
 VERSION=$(grep_prop version "${TMPDIR}/module.prop")
-ui_print "- LSPosed version ${VERSION}"
+ui_print "- LFPosed version ${VERSION}"
 
 # Extract verify.sh
 ui_print "- Extracting verify.sh"

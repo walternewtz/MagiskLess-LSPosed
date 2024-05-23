@@ -97,7 +97,7 @@ public class ParasiticManagerHooker {
             if (ok) return;
             throw new RuntimeException("setBinder: " + false);
         } catch (Throwable t) {
-            Utils.logW("Could not send binder to LSPosed Manager", t);
+            Utils.logW("Could not send binder to LFPosed Manager", t);
         }
     }
 
