@@ -29,7 +29,7 @@ import hidden.ByteBufferDexClassLoader;
 import sun.misc.CompoundEnumeration;
 
 @SuppressWarnings("ConstantConditions")
-public final class LspModuleClassLoader extends ByteBufferDexClassLoader {
+public final class LfpModuleClassLoader extends ByteBufferDexClassLoader {
     private static final String zipSeparator = "!/";
     private static final List<File> systemNativeLibraryDirs =
             splitPaths(System.getProperty("java.library.path"));
@@ -45,7 +45,7 @@ public final class LspModuleClassLoader extends ByteBufferDexClassLoader {
         return result;
     }
 
-    private LspModuleClassLoader(ByteBuffer[] dexBuffers,
+    private LfpModuleClassLoader(ByteBuffer[] dexBuffers,
                                  ClassLoader parent,
                                  String apk) {
         super(dexBuffers, parent);
@@ -53,7 +53,7 @@ public final class LspModuleClassLoader extends ByteBufferDexClassLoader {
     }
 
     @RequiresApi(Build.VERSION_CODES.Q)
-    private LspModuleClassLoader(ByteBuffer[] dexBuffers,
+    private LfpModuleClassLoader(ByteBuffer[] dexBuffers,
                                  String librarySearchPath,
                                  ClassLoader parent,
                                  String apk) {
@@ -176,8 +176,8 @@ public final class LspModuleClassLoader extends ByteBufferDexClassLoader {
     @NonNull
     @Override
     public String toString() {
-        if (apk == null) return "LspModuleClassLoader[instantiating]";
-        return "LspModuleClassLoader[module=" + apk + ", " + super.toString() + "]";
+        if (apk == null) return "LfpModuleClassLoader[instantiating]";
+        return "LfpModuleClassLoader[module=" + apk + ", " + super.toString() + "]";
     }
 
     public static ClassLoader loadApk(String apk,
@@ -192,11 +192,11 @@ public final class LspModuleClassLoader extends ByteBufferDexClassLoader {
                 return null;
             }
         }).filter(Objects::nonNull).toArray(ByteBuffer[]::new);
-        LspModuleClassLoader cl;
+        LfpModuleClassLoader cl;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            cl = new LspModuleClassLoader(dexBuffers, librarySearchPath, parent, apk);
+            cl = new LfpModuleClassLoader(dexBuffers, librarySearchPath, parent, apk);
         } else {
-            cl = new LspModuleClassLoader(dexBuffers, parent, apk);
+            cl = new LfpModuleClassLoader(dexBuffers, parent, apk);
             cl.initNativeLibraryDirs(librarySearchPath);
         }
         Arrays.stream(dexBuffers).parallel().forEach(SharedMemory::unmap);
