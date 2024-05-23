@@ -45,7 +45,7 @@ import org.lsposed.lspd.impl.LFPosedContext;
 import org.lsposed.lspd.models.PreLoadedApk;
 import org.lsposed.lspd.nativebridge.NativeAPI;
 import org.lsposed.lspd.nativebridge.ResourcesHook;
-import org.lsposed.lspd.util.LspModuleClassLoader;
+import org.lsposed.lspd.util.LfpModuleClassLoader;
 
 import java.io.File;
 import java.lang.ref.WeakReference;
@@ -311,7 +311,7 @@ public final class FposedInit {
         var librarySearchPath = sb.toString();
 
         var initLoader = FposedInit.class.getClassLoader();
-        var mcl = LspModuleClassLoader.loadApk(apk, file.preLoadedDexes, librarySearchPath, initLoader);
+        var mcl = LfpModuleClassLoader.loadApk(apk, file.preLoadedDexes, librarySearchPath, initLoader);
 
         try {
             if (mcl.loadClass(FposedBridge.class.getName()).getClassLoader() != initLoader) {

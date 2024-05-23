@@ -19,7 +19,7 @@ import org.lsposed.lspd.models.Module;
 import org.lsposed.lspd.nativebridge.HookBridge;
 import org.lsposed.lspd.nativebridge.NativeAPI;
 import org.lsposed.lspd.service.ILFPInjectedModuleService;
-import org.lsposed.lspd.util.LspModuleClassLoader;
+import org.lsposed.lspd.util.LfpModuleClassLoader;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -95,7 +95,7 @@ public class LFPosedContext implements XposedInterface {
             }
             var librarySearchPath = sb.toString();
             var initLoader = XposedModule.class.getClassLoader();
-            var mcl = LspModuleClassLoader.loadApk(module.apkPath, module.file.preLoadedDexes, librarySearchPath, initLoader);
+            var mcl = LfpModuleClassLoader.loadApk(module.apkPath, module.file.preLoadedDexes, librarySearchPath, initLoader);
             if (mcl.loadClass(XposedModule.class.getName()).getClassLoader() != initLoader) {
                 Log.e(TAG, "  Cannot load module: " + module.packageName);
                 Log.e(TAG, "  The Xposed API classes are compiled into the module's APK.");
