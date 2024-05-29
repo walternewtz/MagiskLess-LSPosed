@@ -49,7 +49,6 @@ import org.lsposed.manager.receivers.LSPManagerServiceHolder;
 import org.lsposed.manager.repo.RepoLoader;
 import org.lsposed.manager.util.CloudflareDNS;
 import org.lsposed.manager.util.ModuleUtil;
-import org.lsposed.manager.util.Telemetry;
 import org.lsposed.manager.util.ThemeUtil;
 import org.lsposed.manager.util.UpdateUtil;
 
@@ -136,28 +135,6 @@ public class App extends Application {
 
     public static Handler getMainHandler() {
         return MainHandler;
-    }
-
-    @Override
-    protected void attachBaseContext(Context base) {
-        super.attachBaseContext(base);
-        Telemetry.start(this);
-        var map = new HashMap<String, String>(1);
-        map.put("isParasitic", String.valueOf(isParasitic));
-        Telemetry.trackEvent("App start", map);
-        var am = getSystemService(ActivityManager.class);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            map.clear();
-            var reasons = am.getHistoricalProcessExitReasons(null, 0, 1);
-            if (reasons.size() == 1) {
-                map.put("description", reasons.get(0).getDescription());
-                map.put("importance", String.valueOf(reasons.get(0).getImportance()));
-                map.put("process", reasons.get(0).getProcessName());
-                map.put("reason", String.valueOf(reasons.get(0).getReason()));
-                map.put("status", String.valueOf(reasons.get(0).getStatus()));
-                Telemetry.trackEvent("Last exit reasons", map);
-            }
-        }
     }
 
     private void setCrashReport() {
