@@ -31,7 +31,7 @@ body:
       required: true
   - type: textarea
     attributes:
-      label: Xposed Module List
+      label: Fposed Module List
       render: shell
     validations:
       required: true

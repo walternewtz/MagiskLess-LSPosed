@@ -107,7 +107,7 @@ public final class ModuleUtil {
         for (var apk : apks) {
             try {
                 zip = new ZipFile(apk);
-                if (zip.getEntry("META-INF/xposed/java_init.list") != null) {
+                if (zip.getEntry("META-INF/fposed/java_init.list") != null) {
                     return zip;
                 }
                 zip.close();
@@ -293,7 +293,7 @@ public final class ModuleUtil {
                 int targetVersion = 100;
                 boolean staticScope = false;
                 try (modernModuleApk) {
-                    var propEntry = modernModuleApk.getEntry("META-INF/xposed/module.prop");
+                    var propEntry = modernModuleApk.getEntry("META-INF/fposed/module.prop");
                     if (propEntry != null) {
                         var prop = new Properties();
                         prop.load(modernModuleApk.getInputStream(propEntry));
@@ -301,7 +301,7 @@ public final class ModuleUtil {
                         targetVersion = extractIntPart(prop.getProperty("targetApiVersion"));
                         staticScope = TextUtils.equals(prop.getProperty("staticScope"), "true");
                     }
-                    var scopeEntry = modernModuleApk.getEntry("META-INF/xposed/scope.list");
+                    var scopeEntry = modernModuleApk.getEntry("META-INF/fposed/scope.list");
                     if (scopeEntry != null) {
                         try (var reader = new BufferedReader(new InputStreamReader(modernModuleApk.getInputStream(scopeEntry)))) {
                             scopeList = reader.lines().collect(Collectors.toList());

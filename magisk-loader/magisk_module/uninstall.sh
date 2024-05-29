@@ -19,8 +19,8 @@
 
 MODDIR=${0%/*}
 MODSDIR=$(dirname "$MODDIR")
-if [ -d "$MODSDIR/riru_lsposed" ] && [ -d "$MODSDIR/zygisk_lsposed" ]; then
-  if [ -f "$MODSDIR/riru_lsposed/remove" ] && [ -f "$MODSDIR/zygisk_lsposed/remove" ]; then
+if [ -d "$MODSDIR/riru_lfposed" ] && [ -d "$MODSDIR/zygisk_lfposed" ]; then
+  if [ -f "$MODSDIR/riru_lfposed/remove" ] && [ -f "$MODSDIR/zygisk_lfposed/remove" ]; then
     rm -rf /data/adb/lspd
   fi
 else
