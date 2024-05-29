@@ -35,7 +35,7 @@ body:
       required: true
   - type: textarea
     attributes:
-      label: Xposed Module List/Xposed 模块列表
+      label: Fposed Module List/Fposed 模块列表
       render: shell
     validations:
       required: true
