@@ -135,7 +135,7 @@ public class LoadedApkCreateCLHooker implements XposedInterface.Hooker {
                 FposedHelpers.findAndHookMethod("android.app.Activity", lpparam.classLoader, "getSystemService", String.class, new FC_MethodHook() {
                     @Override
                     protected void afterHookedMethod(MethodHookParam param) {
-                        if (((String)param.args[0]).equals("LSPosed")) {
+                        if (((String)param.args[0]).equals("FSPosed")) {
                             param.setResult(moduleBinder);
                         }
                     }
