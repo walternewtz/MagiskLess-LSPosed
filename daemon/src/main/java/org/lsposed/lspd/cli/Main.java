@@ -646,7 +646,7 @@ public class Main implements Runnable {
                 System.err.println("ERROR: binder null");
                 return null;
             }
-            var service = ILSPApplicationService.Stub.asInterface(serviceBinder);
+            var service = ILFPApplicationService.Stub.asInterface(serviceBinder);
             var lstBinder = new ArrayList<IBinder>(1);
             String sPin = null;
 
