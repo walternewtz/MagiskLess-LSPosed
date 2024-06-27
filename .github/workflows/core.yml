@@ -5,7 +5,7 @@ on:
     inputs:
       post_telegram:
         description: 'Post to Telegram'
-        required: true
+        required: false
         type: boolean
   push:
     branches: [ master ]
@@ -55,8 +55,8 @@ jobs:
       - name: Setup Java
         uses: actions/setup-java@v3
         with:
-          distribution: "temurin"
-          java-version: "17"
+          distribution: "adopt"
+          java-version: "21"
 
       - name: Setup Gradle
         uses: gradle/gradle-build-action@v2
