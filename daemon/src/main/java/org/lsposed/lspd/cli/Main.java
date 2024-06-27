@@ -15,7 +15,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.lsposed.lspd.models.Application;
 import org.lsposed.lspd.ICLIService;
-import org.lsposed.lspd.service.ILSPApplicationService;
+import org.lsposed.lspd.service.ILFPApplicationService;
 import org.lsposed.lspd.util.SignInfo;
 
 import static org.lsposed.lspd.cli.Utils.CMDNAME;

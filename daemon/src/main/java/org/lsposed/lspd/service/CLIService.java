@@ -161,19 +161,19 @@ public class CLIService extends ICLIService.Stub {
                 .setContentTitle(title)
                 .setContentText(content)
                 .setColor(Color.BLUE)
-                .setSmallIcon(LSPNotificationManager.getNotificationIcon())
+                .setSmallIcon(LFPNotificationManager.getNotificationIcon())
                 .setAutoCancel(false)
                 .setStyle(style)
                 .build();
         notification.extras.putString("android.substName", "LSPosed");
         try {
-            var nm = LSPNotificationManager.getNotificationManager();
+            var nm = LFPNotificationManager.getNotificationManager();
             var list = new ArrayList<NotificationChannel>();
 
             final NotificationChannel channel =
                     new NotificationChannel(CHANNEL_ID, CHANNEL_NAME, CHANNEL_IMP);
             channel.setShowBadge(false);
-            if (LSPNotificationManager.hasNotificationChannelForSystem(nm, CHANNEL_ID)) {
+            if (LFPNotificationManager.hasNotificationChannelForSystem(nm, CHANNEL_ID)) {
                 nm.updateNotificationChannelForPackage("android", 1000, channel);
             } else {
                 list.add(channel);
