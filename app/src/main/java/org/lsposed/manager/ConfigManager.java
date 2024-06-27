@@ -180,7 +180,7 @@ public class ConfigManager {
 
     public static boolean isLogWatchdogEnabled() {
         try {
-            return LSPManagerServiceHolder.getService().isLogWatchdogEnabled();
+            return LFPManagerServiceHolder.getService().isLogWatchdogEnabled();
         } catch (RemoteException e) {
             Log.e(App.TAG, Log.getStackTraceString(e));
             return false;
@@ -189,7 +189,7 @@ public class ConfigManager {
 
     public static boolean setLogWatchdog(boolean enabled) {
         try {
-            LSPManagerServiceHolder.getService().setLogWatchdog(enabled);
+            LFPManagerServiceHolder.getService().setLogWatchdog(enabled);
             return true;
         } catch (RemoteException e) {
             Log.e(App.TAG, Log.getStackTraceString(e));
@@ -384,7 +384,7 @@ public class ConfigManager {
 
     public static boolean isEnableCli() {
         try {
-            return LSPManagerServiceHolder.getService().isEnableCli();
+            return LFPManagerServiceHolder.getService().isEnableCli();
         } catch (RemoteException e) {
             Log.e(App.TAG, Log.getStackTraceString(e));
             return false;
@@ -393,7 +393,7 @@ public class ConfigManager {
 
     public static boolean setEnableCli(boolean enabled) {
         try {
-            LSPManagerServiceHolder.getService().setEnableCli(enabled);
+            LFPManagerServiceHolder.getService().setEnableCli(enabled);
             return true;
         } catch (RemoteException e) {
             Log.e(App.TAG, Log.getStackTraceString(e));
@@ -403,7 +403,7 @@ public class ConfigManager {
 
     public static int getSessionTimeout() {
         try {
-            return LSPManagerServiceHolder.getService().getSessionTimeout();
+            return LFPManagerServiceHolder.getService().getSessionTimeout();
         } catch (RemoteException e) {
             Log.e(App.TAG, Log.getStackTraceString(e));
             return -2;
@@ -412,7 +412,7 @@ public class ConfigManager {
 
     public static boolean setSessionTimeout(int iTimeout) {
         try {
-            LSPManagerServiceHolder.getService().setSessionTimeout(iTimeout);
+            LFPManagerServiceHolder.getService().setSessionTimeout(iTimeout);
             return true;
         } catch (RemoteException e) {
             Log.e(App.TAG, Log.getStackTraceString(e));
@@ -431,7 +431,7 @@ public class ConfigManager {
 
     public static boolean getAutomaticAdd(String packageName) {
         try {
-            return LSPManagerServiceHolder.getService().getAutomaticAdd(packageName);
+            return LFPManagerServiceHolder.getService().getAutomaticAdd(packageName);
         } catch (RemoteException e) {
             Log.e(App.TAG, Log.getStackTraceString(e));
             return false;
@@ -440,7 +440,7 @@ public class ConfigManager {
 
     public static boolean setAutomaticAdd(String packageName, boolean enable) {
         try {
-            LSPManagerServiceHolder.getService().setAutomaticAdd(packageName, enable);
+            LFPManagerServiceHolder.getService().setAutomaticAdd(packageName, enable);
             return true;
         } catch (RemoteException e) {
             Log.e(App.TAG, Log.getStackTraceString(e));
