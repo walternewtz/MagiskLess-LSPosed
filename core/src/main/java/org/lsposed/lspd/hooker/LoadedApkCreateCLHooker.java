@@ -132,10 +132,10 @@ public class LoadedApkCreateCLHooker implements XposedInterface.Hooker {
             if (moduleBinder != null) {
                 // Let the module to receive the binder for access to xposedservice
                 // Hook is only for module, not app
-                XposedHelpers.findAndHookMethod("android.app.Activity", lpparam.classLoader, "getSystemService", String.class, new XC_MethodHook() {
+                FposedHelpers.findAndHookMethod("android.app.Activity", lpparam.classLoader, "getSystemService", String.class, new XC_MethodHook() {
                     @Override
                     protected void afterHookedMethod(MethodHookParam param) {
-                        if (((String)param.args[0]).equals("LSPosed")) {
+                        if (((String)param.args[0]).equals("FPosed")) {
                             param.setResult(moduleBinder);
                         }
                     }
